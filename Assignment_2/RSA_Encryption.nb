@@ -1,0 +1,2586 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    114236,       2578]
+NotebookOptionsPosition[    101170,       2290]
+NotebookOutlinePosition[    108818,       2487]
+CellTagsIndexPosition[    108775,       2484]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ StyleBox["II",
+  FontFamily->"Times New Roman"],
+ " Encryption and decryption"
+}], "Title",
+ CellChangeTimes->{
+  3.905222251358708*^9},ExpressionUUID->"2e086750-1cf1-4c43-bc57-\
+bac07652a650"],
+
+Cell["\<\
+IX1500- Discrete Mathematics
+Date: 08-10-2023\
+\>", "Text",
+ CellChangeTimes->{{3.905222262637163*^9, 
+  3.905222294934004*^9}},ExpressionUUID->"679e81cd-23f2-4ac3-aad0-\
+55498a6469d8"],
+
+Cell["\<\
+Seema Bashir, sfbashir@kths.se
+Razan Yakoub, \
+\>", "Text",
+ CellChangeTimes->{{3.905222297219407*^9, 
+  3.905222316235774*^9}},ExpressionUUID->"39bfcd1a-7896-4364-9d2c-\
+9b6c98366775"],
+
+Cell[CellGroupData[{
+
+Cell["Task 1: Of Mice and Men, John Steinbeck", "Subchapter",
+ CellChangeTimes->{{3.9052223621409473`*^9, 
+  3.905222371493382*^9}},ExpressionUUID->"2760ab7a-2fed-4ae4-a63f-\
+890119ad5062"],
+
+Cell[CellGroupData[{
+
+Cell["Results", "Section",
+ CellChangeTimes->{{3.9052224824998837`*^9, 
+  3.90522248396964*^9}},ExpressionUUID->"28ab532a-4f99-4328-b494-\
+a8a51a0e3e70"],
+
+Cell[CellGroupData[{
+
+Cell["Task", "Subsection",ExpressionUUID->"4df8543c-22f8-401d-8973-c66d5fa62864"],
+
+Cell[TextData[{
+ "Anv\[ADoubleDot]nd RSA kryptering f\[ODoubleDot]r att kryptera \
+nedst\[ARing]ende citat. D\[ADoubleDot]r ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "ab007a61-15df-40a2-94fe-a5e9dfafbc90"],
+ " skall vara h\[ODoubleDot]gst 200 bitar och ",
+ Cell[BoxData[
+  FormBox["e", TraditionalForm]],ExpressionUUID->
+  "07c049b8-740a-4694-b679-eb18b14b2387"],
+ " ett litet tal, ca ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["10", "3"], "-", 
+    SuperscriptBox["10", "4"]}], TraditionalForm]],ExpressionUUID->
+  "216c4967-04f0-4ac5-afc8-1cadeeee32f6"],
+ " stort. Se 2.2.4 f\[ODoubleDot]r hur dessa ska generas.\n\n\
+\[OpenCurlyDoubleQuote]",
+ StyleBox["A few miles south of Soledad, the Salinas River drops in close to \
+the hillside bank and runs deep and green. The water is warm too, for it has \
+slipped twinkling over the yellow sands in the sunlight before reaching the \
+narrow pool. On one side of the river the golden foothill slopes curve up to \
+the strong and rocky Gabilan Mountains, but on the valley side the water is \
+lined with trees- willows fresh and green with every spring, carrying in \
+their lower leaf junctures the debris of the winter\[CloseCurlyQuote]s \
+flooding; and sycamores with mottled, white, recumbent limbs and branches \
+that arch over the pool. On the sandy bank under the trees the leaves lie \
+deep and so crisp that a lizard makes a great skittering if he runs among \
+them.Rabbits come out of the brush to sit on the sand in the evening, and the \
+damp flats are covered with the night tracks of \[OpenCurlyQuote]coons, and \
+with the spread pads of dogs from the ranches, and with the split-wedge \
+tracks of deer that come to drink in the dark\[CloseCurlyDoubleQuote].\n\n",
+  FontSlant->"Italic"],
+ "Dekryptera sedan meddelandet och verifirera att ni f\[ARing]r samma \
+resultat som ursprunget. Unders\[ODoubleDot]k sedan sambandet mellan nyckell\
+\[ADoubleDot]ngd (i bitar) och tid f\[ODoubleDot]r att kryptera och \
+dekryptera meddelanden. Rita en graf f\[ODoubleDot]r sambandet mellan nyckel\
+\[ADoubleDot]ngd, ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "9e80afcd-faba-4899-bbab-0a8cc9f203a7"],
+ " , och exekveringstid. L\[ARing]t ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "18525eaa-3f63-4857-81c0-72b078b6ee33"],
+ " variera upp till 2048 bitar."
+}], "Text",
+ CellChangeTimes->{{3.905222489161963*^9, 3.9052225499708433`*^9}, {
+  3.9052226678477507`*^9, 3.90522268781824*^9}, {3.9052227286945953`*^9, 
+  3.905222746248455*^9}},ExpressionUUID->"8ad5d4da-afa2-434b-a402-\
+a9f9b705fa59"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Result", "Subsection",ExpressionUUID->"39a0ef6c-6a2c-4081-9062-84513a76c571"],
+
+Cell["\<\
+A significant correlation between key length and encryption time, is evident \
+from the data in the tables and the graphs. As illustrated in the tables, \
+increasing the key length in bits results in a proportional increase in the \
+time required for encryption, measured in microseconds. For instance, when \
+comparing a 100-bit key to a 2000-bit key, we observed that encryption time \
+increased from 16 microseconds to 58 microseconds, following a nearly linear \
+pattern. This finding aligns with the well-established expectation that \
+longer keys demand more computational resources, leading to longer encryption \
+times. It emphasizes the inherent trade-off between security and performance, \
+where longer keys enhance security but at the cost of extended processing time.
+
+
+Similarly, we observed a direct relationship between key length and \
+decryption time in our experiments. Longer keys necessitated more \
+computational effort, resulting in longer decryption times, also measured in \
+microseconds. For example, examining the decryption times in the tables, we \
+observed that decrypting data with a 100-bit key took 136 microseconds, while \
+decrypting with a 2000-bit key took 35,924 microseconds. Notably, decryption \
+generally required more time than encryption for the same key length. This \
+discrepancy underscores the complexity of reversing cryptographic operations, \
+highlighting the pivotal role of key length in striking a balance between \
+security and efficiency. Longer keys enhance data security but necessitate \
+more time and computational power for decryption 
+\
+\>", "Text",
+ CellChangeTimes->{{3.90568959735666*^9, 3.905689599740033*^9}, {
+   3.905689675247775*^9, 3.9056896831983213`*^9}, 3.9056897798643103`*^9, {
+   3.905689820386462*^9, 3.9056898289217863`*^9}, 3.905692205862957*^9, {
+   3.9056924725084743`*^9, 
+   3.9056924964218493`*^9}},ExpressionUUID->"1bf59983-7c21-4d19-805a-\
+0068e3a1cdc7"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Solutions ", "Section",
+ CellChangeTimes->{{3.905222981949855*^9, 
+  3.905222984452628*^9}},ExpressionUUID->"6943093f-8a76-4b29-9b2d-\
+76d8c3875b28"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Mathematical formulas and equations
+\
+\>", "Subsection",
+ CellChangeTimes->{{3.905222989898704*^9, 3.9052229997126904`*^9}, 
+   3.905329860468959*^9, {3.905435993544538*^9, 3.905436003552969*^9}, 
+   3.905436033780381*^9},ExpressionUUID->"7e65a304-4725-4568-8fa8-\
+1b4ca87c4741"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"n", " ", "=", " ", 
+  RowBox[{"p", " ", "*", " ", "q"}]}]], "Code",
+ CellChangeTimes->{
+  3.905436041346789*^9, {3.9054364741161203`*^9, 3.905436492992477*^9}, 
+   3.905437135328904*^9},
+ CellLabel->
+  "In[485]:=",ExpressionUUID->"7ceda038-d8c5-4faf-8b48-2d15bc0dcb40"],
+
+Cell[BoxData[
+ RowBox[{"p", " ", "q"}]], "Output",
+ CellChangeTimes->{3.905529575396612*^9, 3.905688583731366*^9},
+ CellLabel->
+  "Out[485]=",ExpressionUUID->"d3712d63-fa87-4cc5-9e07-5c0a335d3ea3"]
+}, Open  ]],
+
+Cell["\<\
+The formula above is a fundamental step in the creation of public and private \
+keys in RSA encryption. The process of computing \[OpenCurlyQuote]n = p * q\
+\[CloseCurlyQuote] is used to specifically create the keys.  This step \
+involves carefully selecting two large prime numbers, \[OpenCurlyQuote]p\
+\[CloseCurlyQuote] and \[OpenCurlyQuote]q,\[CloseCurlyQuote]. It should be \
+noted that both p and q are chosen carefully in order to resist potential \
+attacks. The result of multiplying these prime numbers, represented as \
+\[OpenCurlyQuote]n,\[CloseCurlyQuote] serves as the modulus and forms the \
+fundamental basis for both the public and private keys. \[OpenCurlyQuote]n\
+\[CloseCurlyQuote] is publicly shared as part of the public key and is used \
+for encrypting messages, while the private key holder is the sole individual \
+with access to it. The overall security of the system depends on the \
+formidable challenge of factoring \[OpenCurlyQuote]n\[CloseCurlyQuote] back \
+into its original prime components, \[OpenCurlyQuote]p\[CloseCurlyQuote] and \
+\[OpenCurlyQuote]q,\[CloseCurlyQuote] a computationally intensive task known \
+as the RSA problem. Using larger prime numbers significantly amplifies the \
+difficulty of this factorization, thereby enhancing the encryption system\
+\[CloseCurlyQuote]s overall security.
+\
+\>", "Text",
+ CellChangeTimes->{
+  3.905329881052123*^9, {3.905436560382168*^9, 3.905436583468689*^9}, {
+   3.905436639356868*^9, 3.905436746921702*^9}, 
+   3.9054367831689253`*^9},ExpressionUUID->"cf34a273-f4f4-4244-8aca-\
+2123c4a36c08"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[CurlyPhi]", 
+   RowBox[{"(", "n", ")"}]}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"p", " ", "-", " ", "1"}], ")"}], 
+   RowBox[{"(", 
+    RowBox[{"q", " ", "-", " ", "1"}], ")"}]}]}]], "Code",
+ CellChangeTimes->{3.9054367924687157`*^9, 3.9054371587062263`*^9, 
+  3.905756553679182*^9},
+ EmphasizeSyntaxErrors->
+  True,ExpressionUUID->"14a323b3-923f-4a51-a71c-63e38596b046"],
+
+Cell["\<\
+Euler\[CloseCurlyQuote]s totient function, denoted as \[CurlyPhi](n), is a \
+mathematical tool used in RSA encyption. When applied to the product of two \
+distinct prime numbers, \[OpenCurlyQuote]p\[CloseCurlyQuote] and \
+\[OpenCurlyQuote]q,\[CloseCurlyQuote] which form the modulus \
+\[OpenCurlyQuote]n\[CloseCurlyQuote] in RSA encryption, the formula \
+\[CurlyPhi](n) = (p - 1)(q - 1) calculates the count of positive integers \
+less than \[OpenCurlyQuote]n\[CloseCurlyQuote] that are coprime (relatively \
+prime) to \[OpenCurlyQuote]n.\[CloseCurlyQuote] This value is crucial as it \
+helps determine the private exponent in the key pair generation process. By \
+knowing the totient of \[OpenCurlyQuote]n,\[CloseCurlyQuote] it becomes \
+possible to create a private key that enables secure decryption of messages \
+encrypted with the corresponding public key.\
+\>", "Text",
+ CellChangeTimes->{{3.905436797501402*^9, 
+  3.905436857825355*^9}},ExpressionUUID->"1b8bb2a3-4819-444b-8eb2-\
+4cfc594f0268"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"e", " ", "*", " ", "d"}], ")"}], " ", "%", " ", "\[CurlyPhi]", 
+   RowBox[{"(", "n", ")"}]}], " ", "=", " ", "1"}]], "Code",
+ CellChangeTimes->{3.905436966172155*^9},
+ CellLabel->
+  "In[486]:=",ExpressionUUID->"5cd1762c-3a26-44b7-803f-e0ae9b500fc1"],
+
+Cell["\<\
+The formula (e * d) % \[CurlyPhi](n) = 1 is at the core of generating a \
+secure private key d. \[OpenCurlyDoubleQuote] e \[CloseCurlyDoubleQuote] \
+represents the public key exponent, and \[CurlyPhi](n) is Euler\
+\[CloseCurlyQuote]s totient function of the modulus n. This formula ensures \
+that the product of the public exponent and the private exponent, when \
+computed modulo the totient of n, equals 1. This property is essential \
+because it guarantees the mathematical relationship between the public and \
+private keys, making it possible to encrypt data with the public key and \
+decrypt it with the private key accurately and securely. The private exponent \
+d is carefully selected to satisfy this equation while keeping it \
+confidential to maintain the security of the encryption.\
+\>", "Text",
+ CellChangeTimes->{{3.905436996659183*^9, 3.9054370145568333`*^9}, {
+  3.9054370539945793`*^9, 
+  3.90543706044526*^9}},ExpressionUUID->"3143b677-9ad5-4db3-ba94-\
+be5dcf74187c"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Diagrams
+\
+\>", "Subsection",
+ CellChangeTimes->{{3.905223021305827*^9, 3.905223037726317*^9}, 
+   3.905444874754588*^9},ExpressionUUID->"1db48066-a568-4f09-a9b7-\
+7f37a8e3983c"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{{}, {}, 
+     {RGBColor[1, 0, 0], PointSize[
+       NCache[
+        Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[1.6], 
+      LineBox[{{200., 8.*^-6}, {400., 9.*^-6}, {600., 0.00001}, {800., 
+       0.000014}, {1000., 0.000016}, {1200., 0.00002}, {1400., 0.000018}, {
+       1600., 0.000021}, {1800., 0.000023}, {2000., 0.000029}}]}}, 
+    {RGBColor[1, 0, 0], PointSize[
+      NCache[
+       Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[1.6], 
+     GeometricTransformationBox[InsetBox[
+       FormBox[
+        StyleBox[
+         GraphicsBox[
+          {EdgeForm[None], DiskBox[{0, 0}]}],
+         StripOnInput->False,
+         GraphicsBoxOptions->{DefaultBaseStyle->Directive[
+           PointSize[
+            Rational[7, 360]], 
+           AbsoluteThickness[1.6], 
+           RGBColor[1, 0, 0]]}],
+        TraditionalForm], {0., 0.}, Automatic, Offset[6.272]], {{{200., 
+      8.*^-6}}, {{400., 9.*^-6}}, {{600., 0.00001}}, {{800., 0.000014}}, {{
+      1000., 0.000016}}, {{1200., 0.00002}}, {{1400., 0.000018}}, {{1600., 
+      0.000021}}, {{1800., 0.000023}}, {{2000., 0.000029}}}]}}, {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{True, True}, {True, True}},
+  FrameLabel->{{
+     FormBox[
+      TagBox["\"Encryption Time (s)\"", HoldForm], TraditionalForm], None}, {
+     FormBox[
+      TagBox["\"Key Length (bits)\"", HoldForm], TraditionalForm], None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{Automatic, Automatic},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        Identity[
+         Part[#, 1]], 
+        Identity[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        Identity[
+         Part[#, 1]], 
+        Identity[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 2000.}, {0, 0.000029}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Input",
+ CellChangeTimes->{{3.905692133256155*^9, 
+  3.905692133480619*^9}},ExpressionUUID->"f5ea40fb-0d97-45e7-abce-\
+15a1380c23b4"],
+
+Cell[TextData[{
+ "\n\nGraph 1 displays the relationship between the key length in bits and \
+the time for it takes to encrypt the message. \n\n",
+ Cell[BoxData[
+  GraphicsBox[{{}, {{{}, {}, 
+      {RGBColor[0, 0, 1], PointSize[
+        NCache[
+         Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[1.6], 
+       LineBox[{{200., 0.000098}, {400., 0.000252}, {600., 0.000526}, {800., 
+        0.000826}, {1000., 0.001364}, {1200., 0.001931}, {1400., 0.002667}, {
+        1600., 0.003571}, {1800., 0.005029}, {2000., 0.006597}}]}}, 
+     {RGBColor[0, 0, 1], PointSize[
+       NCache[
+        Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[1.6], 
+      GeometricTransformationBox[InsetBox[
+        FormBox[
+         StyleBox[
+          GraphicsBox[
+           {EdgeForm[None], DiskBox[{0, 0}]}],
+          StripOnInput->False,
+          GraphicsBoxOptions->{DefaultBaseStyle->Directive[
+            PointSize[
+             Rational[7, 360]], 
+            AbsoluteThickness[1.6], 
+            RGBColor[0, 0, 1]]}],
+         TraditionalForm], {0., 0.}, Automatic, Offset[6.272]], {{{200., 
+       0.000098}}, {{400., 0.000252}}, {{600., 0.000526}}, {{800., 
+       0.000826}}, {{1000., 0.001364}}, {{1200., 0.001931}}, {{1400., 
+       0.002667}}, {{1600., 0.003571}}, {{1800., 0.005029}}, {{2000., 
+       0.006597}}}]}}, {{}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{None, None},
+   AxesOrigin->{0, 0},
+   DisplayFunction->Identity,
+   Frame->{{True, True}, {True, True}},
+   FrameLabel->{{
+      FormBox[
+       TagBox["\"Decryption Time (s)\"", HoldForm], TraditionalForm], None}, {
+      FormBox[
+       TagBox["\"Key Length (bits)\"", HoldForm], TraditionalForm], None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{Automatic, Automatic},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   Method->{
+    "OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, 
+     "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+         Identity[
+          Part[#, 1]], 
+         Identity[
+          Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+         Identity[
+          Part[#, 1]], 
+         Identity[
+          Part[#, 2]]}& )}},
+   PlotRange->{{0, 2000.}, {0, 0.006597}},
+   PlotRangeClipping->True,
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {
+      Scaled[0.02], 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}]],
+  CellChangeTimes->{3.905530142757073*^9},ExpressionUUID->
+  "f6df3d18-75ee-4130-8c7c-d523c85a45d1"],
+ "\n"
+}], "Affiliation",
+ CellChangeTimes->{
+  3.9054374461920156`*^9, {3.9054376260053463`*^9, 3.905437769781343*^9}, {
+   3.9054379118553743`*^9, 3.905437918122611*^9}, {3.905444791763105*^9, 
+   3.9054448142559834`*^9}, 3.905444914231016*^9, {3.905530164716611*^9, 
+   3.9055301842542686`*^9}, {3.905692142049436*^9, 
+   3.90569214204961*^9}},ExpressionUUID->"120fe2be-e9fd-490f-97d7-\
+443683eceefc"],
+
+Cell["\<\
+Graph 2 visualizes the relationship between the key length in bits and the \
+time it takes to decrypt the message . \
+\>", "Affiliation",
+ CellChangeTimes->{
+  3.905223306228095*^9, {3.905444818353858*^9, 3.9054448633081417`*^9}, 
+   3.90544495859938*^9},ExpressionUUID->"5148f49d-d583-4470-9eb3-\
+2dfd15ad68fc"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"ccdb6aff-850f-45fc-a97e-6b37aeb2f0a6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Tables
+\
+\>", "Subsection",
+ CellChangeTimes->{{3.90569005464377*^9, 
+  3.9056900752509108`*^9}},ExpressionUUID->"6374be70-da34-4981-bcaf-\
+458b45c5773d"],
+
+Cell[BoxData[
+ RowBox[{GridBox[{
+    {
+     TagBox["\"\<Key Length (bits)\>\"",
+      HoldForm], 
+     TagBox["\"\<Encryption Time (s)\>\"",
+      HoldForm]},
+    {"200", "8.`*^-6"},
+    {"400", "9.`*^-6"},
+    {"600", "0.00001`"},
+    {"800", "0.000014`"},
+    {"1000", "0.000016`"},
+    {"1200", "0.00002`"},
+    {"1400", "0.000018`"},
+    {"1600", "0.000021`"},
+    {"1800", "0.000023`"},
+    {"2000", "0.000029`"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxDividers->{
+    "Columns" -> {{False}}, "Rows" -> {False, True, {False}, False}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.905690086835466*^9, 3.9056900938446817`*^9}, {
+  3.905692145388034*^9, 
+  3.9056921607337646`*^9}},ExpressionUUID->"d6f65803-6947-4234-a75e-\
+10f789036269"],
+
+Cell["\<\
+Table1: displays the encryption time data for various key lengths
+\
+\>", "Text",
+ CellChangeTimes->{{3.905690102885544*^9, 
+  3.9056901775672493`*^9}},ExpressionUUID->"0cbf8336-db5c-432e-b9a8-\
+dbc84a9ad6fc"],
+
+Cell[BoxData[
+ RowBox[{GridBox[{
+    {
+     TagBox["\"\<Key Length (bits)\>\"",
+      HoldForm], 
+     TagBox["\"\<Decryption Time (s)\>\"",
+      HoldForm]},
+    {"200", "0.000098`"},
+    {"400", "0.000252`"},
+    {"600", "0.000526`"},
+    {"800", "0.000826`"},
+    {"1000", "0.001364`"},
+    {"1200", "0.001931`"},
+    {"1400", "0.002667`"},
+    {"1600", "0.003571`"},
+    {"1800", "0.005029`"},
+    {"2000", "0.006597`"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxDividers->{
+    "Columns" -> {{False}}, "Rows" -> {False, True, {False}, False}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.905690197674765*^9, 3.905690201149897*^9}, 
+   3.9056903434204082`*^9, {3.905692147929982*^9, 
+   3.905692171768508*^9}},ExpressionUUID->"9e1eab5f-2fd5-432a-a1f7-\
+579434744407"],
+
+Cell["\<\
+Table 2: displays the decryption time data for various key lengths\
+\>", "Text",
+ CellChangeTimes->{{3.9056902100889597`*^9, 
+  3.90569023446317*^9}},ExpressionUUID->"c3d327fe-9519-4551-af0b-\
+55b4ae02f99f"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Methodology ", "Subsection",
+ CellChangeTimes->{{3.905223157675334*^9, 3.905223196389518*^9}, 
+   3.9052294819740458`*^9, {3.905438053262336*^9, 3.905438081137883*^9}, {
+   3.905445040243142*^9, 
+   3.905445078339447*^9}},ExpressionUUID->"00c08f59-b4d9-4383-b5df-\
+b4aa4ef2cd9e"],
+
+Cell["\<\
+The implementation for the RSA encryption and decryption of the given message \
+began with first generating the required RSA keys. This is done by selecting \
+and specifying the length of the keys and then randomly generating two prime \
+numbers. The purpose here is to set the desired bit length for the keys, \
+which ultimately determines the key\[CloseCurlyQuote]s strength. Therefore, \
+we began by setting the bit length to 100 bits which in turn sets the bite \
+size of the two keys to be used in encryption and decryption. Thereby, we  \
+generated two randomly created prime numbers are created with in that range. \
+These primes serve as the foundation for the public and private keys. Moving \
+on, the modulus n is calculated as the product of p and q. It should be noted \
+that the generation of p, q, and n is crucial because the security of RSA \
+relies on the computational difficulty of factoring the modulus n back into \
+its prime factors. 
+
+The encryption is continued with the calculation of the value of \[Phi] \
+derived from the two prime numbers p and q. It thereby generates a random \
+integer denoted by e. Thereby, d is calculated, which is the modular \
+multiplicative inverse of e modulo \[CurlyPhi](n). Note that this step is of \
+importance due to mathematical relationship between e, d, and \[CurlyPhi](n). \
+It can be said that (e * d) % \[CurlyPhi](n) = 1. This property ensures that \
+if one encrypts a message using the public key (e, n), then one can only \
+decrypt it using the private key (d, n). 
+
+Thereby, the plaintext message is converted into a numerical format by \
+encoding it into a sequence of bytes using ASCII encoding. Each character in \
+the message is represented by its ASCII value. Next, the sender applies \
+modular exponentiation to generate the ciphertext: ciphertext = (plaintext^e) \
+% n. This step effectively encrypts the message, ensuring its confidentiality \
+during transmission. If the integer value of the ciphertext is less than n, \
+the code also provides an option for decryption, where the ciphertext can be \
+reversed back to its original plaintext form using the sender\
+\[CloseCurlyQuote]s private key d. 
+
+It should be noted that, one must consider different scenarios when \
+encrypting a string message that is of a large size. To efficiently encrypt \
+such messages, they are divided into smaller blocks, and this code snippet \
+accomplishes precisely that. It sets a block size of 8 characters, partitions \
+the input message into individual blocks, each with a maximum length of 8 \
+characters, initializes a list to store the resulting ciphertext blocks, and \
+proceeds to encrypt each of these text blocks separately using the RSA \
+algorithm. This division of the message into smaller blocks enhances the \
+efficiency of encryption and ensures data security when transmitting \
+sensitive information. It constitutes a fundamental step in the overall RSA \
+encryption process, enabling secure communication of messages with varying \
+lengths.
+
+Now, once the message has successfully been encrypted, the decryption process \
+begins with systematically converting the ciphertext back into its original \
+plaintext form. Next, the decryption of each ciphertext block occurs \
+individually. For each block, the ciphertext is retrieved and utilizes the \
+RSA private key, d and n, to reverse the encryption process through modular \
+exponentiation. The numerical result is then converted back into readable \
+text format using ASCII encoding. These decrypted blocks are stored as lists \
+of ASCII values.To ensure the correct sequence, the order of ASCII values are \
+reversed within each decrypted block.
+Finally, the decrypted text blocks are assembled into a coherent paragraph by \
+joining them together. This reconstructed paragraph represents the original \
+plaintext message. 
+
+
+ \
+\>", "Text",
+ CellChangeTimes->{{3.9054451947424507`*^9, 3.905445268875566*^9}, {
+   3.905445300220688*^9, 3.905445408817872*^9}, {3.905445465255867*^9, 
+   3.9054455350609426`*^9}, {3.9054458825545807`*^9, 3.905445932608968*^9}, {
+   3.9054459915868893`*^9, 3.905446014351335*^9}, {3.905446071126493*^9, 
+   3.905446149082011*^9}, {3.905446186784422*^9, 3.9054462205320168`*^9}, {
+   3.905494700703596*^9, 3.9054947008644543`*^9}, {3.905495204459136*^9, 
+   3.90549521178199*^9}, {3.905495387737446*^9, 3.905495500787964*^9}, {
+   3.9054955601078377`*^9, 3.905495621961205*^9}, {3.905495834036036*^9, 
+   3.905495895969616*^9}, {3.905495951880825*^9, 3.905495996509789*^9}, 
+   3.905497997448792*^9, {3.9055296899357452`*^9, 3.905529690081156*^9}, {
+   3.905530457509357*^9, 3.90553046947399*^9}, {3.905530592890356*^9, 
+   3.905530628680831*^9}, 3.905530725365024*^9, {3.905530795767908*^9, 
+   3.905530815176509*^9}, {3.90553086971917*^9, 
+   3.9055310426736603`*^9}},ExpressionUUID->"8c9b7489-af94-4ab6-be7f-\
+77f2860b3ad1"]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Code", "Section",
+ CellChangeTimes->{{3.905229491259616*^9, 3.905229521359509*^9}, 
+   3.9055290605594797`*^9, {3.905529256942362*^9, 3.905529272281245*^9}, {
+   3.9057570261261396`*^9, 
+   3.905757029437817*^9}},ExpressionUUID->"099ee814-8db2-4a63-8b88-\
+1c9110418edc"],
+
+Cell[CellGroupData[{
+
+Cell["Encrypt and Decrypt ", "Subsection",
+ CellChangeTimes->{{3.9057571479624877`*^9, 
+  3.9057571588358436`*^9}},ExpressionUUID->"21ba32be-407d-4e0a-9644-\
+649f81adf774"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bitLength", "=", "100"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p", "=", 
+   RowBox[{"RandomPrime", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"2", "^", 
+       RowBox[{"(", 
+        RowBox[{"bitLength", "-", "1"}], ")"}]}], ",", 
+      RowBox[{
+       RowBox[{"2", "^", "bitLength"}], "-", "1"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"q", "=", 
+   RowBox[{"RandomPrime", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"2", "^", 
+       RowBox[{"(", 
+        RowBox[{"bitLength", "-", "1"}], ")"}]}], ",", 
+      RowBox[{
+       RowBox[{"2", "^", "bitLength"}], " ", "-", "1"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"n", "=", 
+   RowBox[{"p", "*", "q"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"\[Phi]", "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"p", "-", "1"}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{"q", "-", "1"}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"rnd", ":=", 
+   RowBox[{"RandomInteger", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"10", "^", "3"}], ",", 
+      RowBox[{"10", "^", "4"}]}], "}"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{"GCD", "[", 
+     RowBox[{
+      RowBox[{"e", "=", "rnd"}], ",", "\[Phi]"}], "]"}], "!=", "1"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"d", "=", 
+    RowBox[{"PowerMod", "[", 
+     RowBox[{"e", ",", 
+      RowBox[{"-", "1"}], ",", "\[Phi]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "message", "=", 
+    "\"\<A few miles south of Soledad, the Salinas River drops in close to \
+the hillside bank and runs deep and green. The water is warm too, for it has \
+slipped twinkling over the yellow sands in the sunlight before reaching the \
+narrow pool. On one side of the river the golden foothill slopes curve up to \
+the strong and rocky Gabilan Mountains, but on the valley side the water is \
+lined with trees- willows fresh and green with every spring, carrying in \
+their lower leaf junctures the debris of the winter's flooding; and sycamores \
+with mottled, white, recumbent limbs and branches that arch over the pool. On \
+the sandy bank under the trees the leaves lie deep and so crisp that a lizard \
+makes a great skittering if he runs among them. Rabbits come out of the brush \
+to sit on the sand in the evening, and the damp flats are covered with the \
+night tracks of 'coons, and with the spread pads of dogs from the ranches, \
+and with the split-wedge tracks of deer that come to drink in the dark\>\""}],
+    ";"}], "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Convert", " ", "the", " ", "message", " ", "to", " ", "bytes", " ", 
+    "using", " ", "ASCII", " ", "encoding"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bytes", "=", 
+    RowBox[{"ToCharacterCode", "[", "message", "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Concatenate", " ", "the", " ", "bytes", " ", "into", " ", "a", " ", 
+    "single", " ", "integer"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"messageInteger", "=", 
+    RowBox[{"FromDigits", "[", 
+     RowBox[{"bytes", ",", "256"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{"messageInteger", "<", "n"}], ",", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "Encryption", " ", "and", " ", "decryption", " ", "for", " ", "the", " ",
+       "case", " ", "when", " ", "messageInteger"}], "<", "n"}], "*)"}], 
+   RowBox[{
+    RowBox[{
+    "Print", "[", 
+     "\"\<Message integer is less than n, you can proceed with encryption and \
+decryption.\>\"", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"ciphertext", "=", 
+     RowBox[{"PowerMod", "[", 
+      RowBox[{"messageInteger", ",", "e", ",", "n"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"B", "=", "256"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"ascii", "=", 
+     RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"decryptedText", "=", 
+     RowBox[{"PowerMod", "[", 
+      RowBox[{"ciphertext", ",", "d", ",", "n"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"While", "[", 
+     RowBox[{
+      RowBox[{"decryptedText", "!=", "0"}], ",", 
+      RowBox[{
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"ascii", ",", 
+         RowBox[{"Mod", "[", 
+          RowBox[{"decryptedText", ",", "B"}], "]"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"decryptedText", "=", 
+        RowBox[{"Quotient", "[", 
+         RowBox[{"decryptedText", ",", "B"}], "]"}]}], ";"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"messageFromAlice", "=", 
+     RowBox[{"FromCharacterCode", "[", 
+      RowBox[{"Reverse", "[", "ascii", "]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Ciphertext: \>\"", ",", "ciphertext"}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Decrypted Message: \>\"", ",", "messageFromAlice"}], "]"}], 
+    ";"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "Block", " ", "encryption", " ", "and", " ", "decryption", " ", "for", 
+      " ", "the", " ", "case", " ", "when", " ", "messageInteger"}], ">=", 
+     "n"}], "*)"}], 
+   RowBox[{
+    RowBox[{
+    "Print", "[", 
+     "\"\<Message integer is greater than or equal to n, proceeding with \
+block encryption and decryption.\>\"", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"blockSize", "=", "8"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"textBlocks", "=", 
+     RowBox[{"StringPartition", "[", 
+      RowBox[{"message", ",", 
+       RowBox[{"UpTo", "[", "blockSize", "]"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"encryptedBlocks", "=", 
+     RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Do", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"block", "=", 
+        RowBox[{"textBlocks", "[", 
+         RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"messageInteger", "=", 
+        RowBox[{"FromDigits", "[", 
+         RowBox[{
+          RowBox[{"ToCharacterCode", "[", "block", "]"}], ",", "256"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"ciphertext", "=", 
+        RowBox[{"PowerMod", "[", 
+         RowBox[{"messageInteger", ",", "e", ",", "n"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"encryptedBlocks", ",", "ciphertext"}], "]"}], ";"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"Length", "[", "textBlocks", "]"}]}], "}"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{"decryptedBlocks", "=", 
+     RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"decryptedTextBlocks", "=", 
+     RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"i", "=", "1"}], ",", 
+      RowBox[{"i", "<=", 
+       RowBox[{"Length", "[", "encryptedBlocks", "]"}]}], ",", 
+      RowBox[{"i", "++"}], ",", 
+      RowBox[{
+       RowBox[{"ciphertext", "=", 
+        RowBox[{"encryptedBlocks", "[", 
+         RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"decryptedText", "=", 
+        RowBox[{"PowerMod", "[", 
+         RowBox[{"ciphertext", ",", "d", ",", "n"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"ascii", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{"decryptedText", "!=", "0"}], ",", 
+         RowBox[{
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"ascii", ",", 
+            RowBox[{"Mod", "[", 
+             RowBox[{"decryptedText", ",", "256"}], "]"}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"decryptedText", "=", 
+           RowBox[{"Quotient", "[", 
+            RowBox[{"decryptedText", ",", "256"}], "]"}]}], ";"}]}], "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"ascii", "=", 
+        RowBox[{"Reverse", "[", "ascii", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"decryptedBlocks", ",", "ascii"}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"decryptedTextBlock", "=", 
+        RowBox[{"FromCharacterCode", "[", "ascii", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"decryptedTextBlocks", ",", "decryptedTextBlock"}], "]"}], 
+       ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"decryptedParagraph", "=", 
+     RowBox[{"StringJoin", "[", "decryptedTextBlocks", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Encrypted Blocks: \>\"", ",", "encryptedBlocks"}], "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Decrypted Paragraph: \>\"", ",", "decryptedParagraph"}], 
+     "]"}], ";"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.905529566577203*^9, 3.905529572616331*^9}, {
+   3.9055296740342903`*^9, 3.905529674706222*^9}, {3.905530034590683*^9, 
+   3.905530041279389*^9}, {3.9055301172461443`*^9, 3.905530121727523*^9}, {
+   3.905688437641334*^9, 3.905688438117841*^9}, {3.90568856800889*^9, 
+   3.905688607626759*^9}, 3.905688640759886*^9, {3.905688701932075*^9, 
+   3.905688719715147*^9}, 3.90568877269083*^9, {3.905689169844015*^9, 
+   3.9056891711869783`*^9}, {3.905689275257736*^9, 3.905689275685267*^9}, 
+   3.905689392445114*^9, 3.9056895398631907`*^9, {3.905689961325551*^9, 
+   3.905689961720566*^9}, 3.905690008081729*^9, 3.9056905575096188`*^9, {
+   3.905690605778961*^9, 3.905690606229826*^9}, {3.9056906536548977`*^9, 
+   3.905690676893621*^9}, {3.905690797090523*^9, 3.9056908240140543`*^9}, {
+   3.905690886666519*^9, 3.905690895366852*^9}, {3.905691019536825*^9, 
+   3.905691019814917*^9}, {3.9056910826736393`*^9, 3.905691083945826*^9}, {
+   3.905691134568798*^9, 3.905691155497737*^9}, {3.905691561145069*^9, 
+   3.905691563096491*^9}, {3.905691593359211*^9, 3.9056915949585133`*^9}, {
+   3.905691689330624*^9, 3.9056916922158623`*^9}, {3.905691882372179*^9, 
+   3.905691984426483*^9}, {3.905692020507103*^9, 3.905692042584763*^9}, {
+   3.905692094787696*^9, 3.905692104379155*^9}, {3.9057565909944096`*^9, 
+   3.9057566275485177`*^9}, {3.9057566705203295`*^9, 
+   3.9057569389691434`*^9}, {3.905756985558709*^9, 3.9057569987411623`*^9}, {
+   3.90575704645568*^9, 3.905757048279046*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"89513dc4-805c-497e-a0be-de1c8214b930"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Message integer is greater than or equal to n, proceeding \
+with block encryption and decryption.\"\>"], "Print",
+ CellChangeTimes->{3.905757218397524*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"4c35a0b2-d8d2-4e41-b651-c0250ba0ddb2"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Encrypted Blocks: \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{
+    "467364892717119502545522115489259919933980090762602212138005", ",", 
+     "537072302876061848958357648125882540053381239863347429518967", ",", 
+     "576045216504339673564690005506520246057367572980113039916486", ",", 
+     "419133397437885782513454686211542665225225912793598721691339", ",", 
+     "612460397799917444262190374755828645310889315024570692356206", ",", 
+     "614432947251701802889839942319309774042300938022542243499524", ",", 
+     "261089778578651598775808348766549619485806290486356762065948", ",", 
+     "601876430037228132687424191358004765559231533401846604678578", ",", 
+     "414931167727143230588944906603934967757381517772547477933221", ",", 
+     "624201839687051141766696426965388513591971195612988181558379", ",", 
+     "203915346400296654553626571148602583466530553548581621571083", ",", 
+     "182720933864231794677543898066093660784579683077462355865569", ",", 
+     "206462643655336190916068179184558612602657695862993784135358", ",", 
+     "91500163096430106706033861259952017622362546279934377513511", ",", 
+     "582717971043790416690313476353753317430050103876638858259176", ",", 
+     "469674846103007445335533254416028289498871191313352566871324", ",", 
+     "473775554330178378886643871986658800327699481142730056536246", ",", 
+     "402979338706328337404935107091469518615411566968450575185114", ",", 
+     "393666307321887721549832928266222375442134338954271294960956", ",", 
+     "317897859290460292218502749960614309621193132685857697838556", ",", 
+     "152005418474473472777792957413125368596756316892358908870449", ",", 
+     "44560013712800759893487473135949820731486104366077692015035", ",", 
+     "680737040071947050974878344173860611696582216687951748005891", ",", 
+     "298717215737454643412070074022041107547432667009392499126285", ",", 
+     "290842874218934772423791904327105237225828571858436701770774", ",", 
+     "378284770356976926771951351700297592520879229823535116503176", ",", 
+     "13365942372175046617270947865590515055629955143413719565864", ",", 
+     "484798227406453017875358440506280046734431015197106282141320", ",", 
+     "143596886549832742554311083529434325271750056947753896092822", ",", 
+     "194766549861512642461893435061319739539179461926397202189009", ",", 
+     "638330832849993293137597992679445743734374037193936430076463", ",", 
+     "639001750370170713689895232923847319552846531985487071425000", ",", 
+     "645087375659256580436250755827041265250864927851774091345558", ",", 
+     "240731798993639442282514693959982999615165215178864736866178", ",", 
+     "672136074447300909181052779458510207750363155446382128796598", ",", 
+     "80866672937128226136943019283708801241551883383445072995161", ",", 
+     "108072601791960118041581578514691432083412557557878085348074", ",", 
+     "198411135914711762348479888104763586120432013694648568130260", ",", 
+     "308853535590775303839238781850174997727917001866079481246523", ",", 
+     "85558760313659716381090787124396631501852525304832046996020", ",", 
+     "424502499019515520334883580381534578462379205155266189523091", ",", 
+     "788376653621155505273899679948575653847256253185965254087208", ",", 
+     "651824915819127859730438577577792320784253093095425700584350", ",", 
+     "299193961198361190574829984353776902033389316235831619054769", ",", 
+     "201778316560687052377793024861897349801775375953050943720006", ",", 
+     "230564496403859792953518955118197824492216045815207750432331", ",", 
+     "634590450273603866324388281043129844298252079694441391839799", ",", 
+     "53251862150561368677877739081387129373823735304756379442394", ",", 
+     "753235771287076785080637934052694139017628159628374198544367", ",", 
+     "212558501946978023205761613574114890726974866104508290335110", ",", 
+     "534651636727956132413734662261881638931913259234573666230773", ",", 
+     "103634295074503417373540680658103094026235134519025076783763", ",", 
+     "291220465685137286527569991369893920264497883504785631356443", ",", 
+     "726264762594161545940525777831619662553151585126884880597172", ",", 
+     "647091500005691257556639403975937880727266511085040304604878", ",", 
+     "172389477793147791811939857269230970573316433189646614785596", ",", 
+     "725390835788139727198422567891075560895937742932622549230989", ",", 
+     "187693226369549358124596817009532703587744192546161605045694", ",", 
+     "576340489969062498681723536834114563784670075003014375406200", ",", 
+     "430987372507490242702367322140842838034248132441146889745880", ",", 
+     "558826014451749182698263211208412293008761770745702660644887", ",", 
+     "569662160947864538177503585567757766376847956624264942461063", ",", 
+     "716661863441687559148795471123505855193079060898682650595252", ",", 
+     "105002768413719548271119902953616394305411205461786514837079", ",", 
+     "110927918558015015162037500351284800770170329146978905132115", ",", 
+     "308942375901780524053253442876418124161148520375492562093789", ",", 
+     "131985981934703566275263447302980191200392613407717466457178", ",", 
+     "494748662671298639634786627419518152554818548021407932332644", ",", 
+     "509560216895691965543914785945371099012296853261061386624610", ",", 
+     "221269306753575382889355236334419861087477065385402876354785", ",", 
+     "571854581278519096605736557250488185176932850552580005527192", ",", 
+     "133734333319626466249493583641451251698703683213820409004868", ",", 
+     "117219139835241146763920631272154670908602076802051235875383", ",", 
+     "525472121016226411596900396157204073017276494999347634635436", ",", 
+     "447404759827201435250704415324334278137672126534664109646789", ",", 
+     "572109371344689632843353430160097579922492547221588267398902", ",", 
+     "572724455071622427346390527387849662110742172469978120750087", ",", 
+     "614706073756260308246991613116688159871117769653579229935531", ",", 
+     "519417374820196449397789142543498394247552170615698490732301", ",", 
+     "477130397182549228653053380434866581466449642419482389712670", ",", 
+     "583784115349798131322446653501320632884644806914838449815278", ",", 
+     "295736929492887713911949579536679664625668246870067766134267", ",", 
+     "363516373886134116744380271926239739956446092484070593521259", ",", 
+     "411138289679558481260151363776498750550966975905276889247768", ",", 
+     "671974712366701813244312099112533072929473965547826677962608", ",", 
+     "690546603634628321612247631043507792337273626015566331590485", ",", 
+     "565492041381785160261213176052002780971260577469363991862664", ",", 
+     "717489462611320342514570667597221420801194166709480295157149", ",", 
+     "799801297126017375215649766588426556768681974838461472952220", ",", 
+     "45517990582366223812217821911505060171517044519299128111353", ",", 
+     "176762456385159941907029716756873441641498111284472503814939", ",", 
+     "777034984036695608354201912085995159375228436394321299293227", ",", 
+     "573302712213824287085217696792541473732686907203751605422665", ",", 
+     "239545313014742372587413113278023425627284496747562401342770", ",", 
+     "259865555351489932755725010429302573969299171170430207131534", ",", 
+     "776588568416919101637121628563629540383009694398554301241908", ",", 
+     "3330657228619038217777133918280262895361160764432134732931", ",", 
+     "242290002973582165974321718683400372476976065699343109783415", ",", 
+     "805181175789060095898842197672316784091502914687483842987395", ",", 
+     "702540397774358188905562192797564778309985980634662763476881", ",", 
+     "303189864829395446225342712289156461597838280005268061646070", ",", 
+     "714600326463968584925726234734135597503306391814809652541129", ",", 
+     "73960643495328267973764498251530704568968210998100015556855", ",", 
+     "530770282590209706822338251252617046425919386223689570996600", ",", 
+     "676783960232047329169355516452060374593034216582278248535810", ",", 
+     "645249150009253253007296653891421356163575865630994359824950", ",", 
+     "770426576353996585089460779970376753956451634286361024209045", ",", 
+     "131054630531840487585483644313296679958333962959841005246787", ",", 
+     "563877527242926763221179859664098278329436099665320442235787", ",", 
+     "628648532165848887997007487567772730025344023592851303153519", ",", 
+     "721727722284951462499267814068283971175835031713998839366644", ",", 
+     "195541135045392005746330586973198948474696427816974235544940", ",", 
+     "128637289924174406610210120064713910413585738313318640548112", ",", 
+     "394559740508807124227022555990186009922410404908095639707363", ",", 
+     "530770282590209706822338251252617046425919386223689570996600", ",", 
+     "34922768634749587361748980841240849806117546727404308329339", ",", 
+     "74456492599856251917681153985585719621120372479233752915759", ",", 
+     "229564953680640841143692360891323481145657529607728672334157", ",", 
+     "596605188321896047567861779984755451308691484394041398151678", ",", 
+     "526532792173949339711480395189975690844628518703789320836611", ",", 
+     "71072861048894779383613708677168979815711530125702644627628", ",", 
+     "385682044301528062111573411760063441271430633428156538021761", ",", 
+     "77829961605835881670644426962035629453159812490137936674759"}], "}"}]}],
+  SequenceForm[
+  "Encrypted Blocks: ", {
+   467364892717119502545522115489259919933980090762602212138005, 
+    537072302876061848958357648125882540053381239863347429518967, 
+    576045216504339673564690005506520246057367572980113039916486, 
+    419133397437885782513454686211542665225225912793598721691339, 
+    612460397799917444262190374755828645310889315024570692356206, 
+    614432947251701802889839942319309774042300938022542243499524, 
+    261089778578651598775808348766549619485806290486356762065948, 
+    601876430037228132687424191358004765559231533401846604678578, 
+    414931167727143230588944906603934967757381517772547477933221, 
+    624201839687051141766696426965388513591971195612988181558379, 
+    203915346400296654553626571148602583466530553548581621571083, 
+    182720933864231794677543898066093660784579683077462355865569, 
+    206462643655336190916068179184558612602657695862993784135358, 
+    91500163096430106706033861259952017622362546279934377513511, 
+    582717971043790416690313476353753317430050103876638858259176, 
+    469674846103007445335533254416028289498871191313352566871324, 
+    473775554330178378886643871986658800327699481142730056536246, 
+    402979338706328337404935107091469518615411566968450575185114, 
+    393666307321887721549832928266222375442134338954271294960956, 
+    317897859290460292218502749960614309621193132685857697838556, 
+    152005418474473472777792957413125368596756316892358908870449, 
+    44560013712800759893487473135949820731486104366077692015035, 
+    680737040071947050974878344173860611696582216687951748005891, 
+    298717215737454643412070074022041107547432667009392499126285, 
+    290842874218934772423791904327105237225828571858436701770774, 
+    378284770356976926771951351700297592520879229823535116503176, 
+    13365942372175046617270947865590515055629955143413719565864, 
+    484798227406453017875358440506280046734431015197106282141320, 
+    143596886549832742554311083529434325271750056947753896092822, 
+    194766549861512642461893435061319739539179461926397202189009, 
+    638330832849993293137597992679445743734374037193936430076463, 
+    639001750370170713689895232923847319552846531985487071425000, 
+    645087375659256580436250755827041265250864927851774091345558, 
+    240731798993639442282514693959982999615165215178864736866178, 
+    672136074447300909181052779458510207750363155446382128796598, 
+    80866672937128226136943019283708801241551883383445072995161, 
+    108072601791960118041581578514691432083412557557878085348074, 
+    198411135914711762348479888104763586120432013694648568130260, 
+    308853535590775303839238781850174997727917001866079481246523, 
+    85558760313659716381090787124396631501852525304832046996020, 
+    424502499019515520334883580381534578462379205155266189523091, 
+    788376653621155505273899679948575653847256253185965254087208, 
+    651824915819127859730438577577792320784253093095425700584350, 
+    299193961198361190574829984353776902033389316235831619054769, 
+    201778316560687052377793024861897349801775375953050943720006, 
+    230564496403859792953518955118197824492216045815207750432331, 
+    634590450273603866324388281043129844298252079694441391839799, 
+    53251862150561368677877739081387129373823735304756379442394, 
+    753235771287076785080637934052694139017628159628374198544367, 
+    212558501946978023205761613574114890726974866104508290335110, 
+    534651636727956132413734662261881638931913259234573666230773, 
+    103634295074503417373540680658103094026235134519025076783763, 
+    291220465685137286527569991369893920264497883504785631356443, 
+    726264762594161545940525777831619662553151585126884880597172, 
+    647091500005691257556639403975937880727266511085040304604878, 
+    172389477793147791811939857269230970573316433189646614785596, 
+    725390835788139727198422567891075560895937742932622549230989, 
+    187693226369549358124596817009532703587744192546161605045694, 
+    576340489969062498681723536834114563784670075003014375406200, 
+    430987372507490242702367322140842838034248132441146889745880, 
+    558826014451749182698263211208412293008761770745702660644887, 
+    569662160947864538177503585567757766376847956624264942461063, 
+    716661863441687559148795471123505855193079060898682650595252, 
+    105002768413719548271119902953616394305411205461786514837079, 
+    110927918558015015162037500351284800770170329146978905132115, 
+    308942375901780524053253442876418124161148520375492562093789, 
+    131985981934703566275263447302980191200392613407717466457178, 
+    494748662671298639634786627419518152554818548021407932332644, 
+    509560216895691965543914785945371099012296853261061386624610, 
+    221269306753575382889355236334419861087477065385402876354785, 
+    571854581278519096605736557250488185176932850552580005527192, 
+    133734333319626466249493583641451251698703683213820409004868, 
+    117219139835241146763920631272154670908602076802051235875383, 
+    525472121016226411596900396157204073017276494999347634635436, 
+    447404759827201435250704415324334278137672126534664109646789, 
+    572109371344689632843353430160097579922492547221588267398902, 
+    572724455071622427346390527387849662110742172469978120750087, 
+    614706073756260308246991613116688159871117769653579229935531, 
+    519417374820196449397789142543498394247552170615698490732301, 
+    477130397182549228653053380434866581466449642419482389712670, 
+    583784115349798131322446653501320632884644806914838449815278, 
+    295736929492887713911949579536679664625668246870067766134267, 
+    363516373886134116744380271926239739956446092484070593521259, 
+    411138289679558481260151363776498750550966975905276889247768, 
+    671974712366701813244312099112533072929473965547826677962608, 
+    690546603634628321612247631043507792337273626015566331590485, 
+    565492041381785160261213176052002780971260577469363991862664, 
+    717489462611320342514570667597221420801194166709480295157149, 
+    799801297126017375215649766588426556768681974838461472952220, 
+    45517990582366223812217821911505060171517044519299128111353, 
+    176762456385159941907029716756873441641498111284472503814939, 
+    777034984036695608354201912085995159375228436394321299293227, 
+    573302712213824287085217696792541473732686907203751605422665, 
+    239545313014742372587413113278023425627284496747562401342770, 
+    259865555351489932755725010429302573969299171170430207131534, 
+    776588568416919101637121628563629540383009694398554301241908, 
+    3330657228619038217777133918280262895361160764432134732931, 
+    242290002973582165974321718683400372476976065699343109783415, 
+    805181175789060095898842197672316784091502914687483842987395, 
+    702540397774358188905562192797564778309985980634662763476881, 
+    303189864829395446225342712289156461597838280005268061646070, 
+    714600326463968584925726234734135597503306391814809652541129, 
+    73960643495328267973764498251530704568968210998100015556855, 
+    530770282590209706822338251252617046425919386223689570996600, 
+    676783960232047329169355516452060374593034216582278248535810, 
+    645249150009253253007296653891421356163575865630994359824950, 
+    770426576353996585089460779970376753956451634286361024209045, 
+    131054630531840487585483644313296679958333962959841005246787, 
+    563877527242926763221179859664098278329436099665320442235787, 
+    628648532165848887997007487567772730025344023592851303153519, 
+    721727722284951462499267814068283971175835031713998839366644, 
+    195541135045392005746330586973198948474696427816974235544940, 
+    128637289924174406610210120064713910413585738313318640548112, 
+    394559740508807124227022555990186009922410404908095639707363, 
+    530770282590209706822338251252617046425919386223689570996600, 
+    34922768634749587361748980841240849806117546727404308329339, 
+    74456492599856251917681153985585719621120372479233752915759, 
+    229564953680640841143692360891323481145657529607728672334157, 
+    596605188321896047567861779984755451308691484394041398151678, 
+    526532792173949339711480395189975690844628518703789320836611, 
+    71072861048894779383613708677168979815711530125702644627628, 
+    385682044301528062111573411760063441271430633428156538021761, 
+    77829961605835881670644426962035629453159812490137936674759}],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.9057572184302754`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"c7e1515b-f228-4307-8a18-4ba0bfe724b8"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Decrypted Paragraph: \"\>", 
+   "\[InvisibleSpace]", "\<\"A few miles south of Soledad, the Salinas River \
+drops in close to the hillside bank and runs deep and green. The water is \
+warm too, for it has slipped twinkling over the yellow sands in the sunlight \
+before reaching the narrow pool. On one side of the river the golden foothill \
+slopes curve up to the strong and rocky Gabilan Mountains, but on the valley \
+side the water is lined with trees- willows fresh and green with every \
+spring, carrying in their lower leaf junctures the debris of the winter's \
+flooding; and sycamores with mottled, white, recumbent limbs and branches \
+that arch over the pool. On the sandy bank under the trees the leaves lie \
+deep and so crisp that a lizard makes a great skittering if he runs among \
+them. Rabbits come out of the brush to sit on the sand in the evening, and \
+the damp flats are covered with the night tracks of 'coons, and with the \
+spread pads of dogs from the ranches, and with the split-wedge tracks of deer \
+that come to drink in the dark\"\>"}],
+  SequenceForm[
+  "Decrypted Paragraph: ", 
+   "A few miles south of Soledad, the Salinas River drops in close to the \
+hillside bank and runs deep and green. The water is warm too, for it has \
+slipped twinkling over the yellow sands in the sunlight before reaching the \
+narrow pool. On one side of the river the golden foothill slopes curve up to \
+the strong and rocky Gabilan Mountains, but on the valley side the water is \
+lined with trees- willows fresh and green with every spring, carrying in \
+their lower leaf junctures the debris of the winter's flooding; and sycamores \
+with mottled, white, recumbent limbs and branches that arch over the pool. On \
+the sandy bank under the trees the leaves lie deep and so crisp that a lizard \
+makes a great skittering if he runs among them. Rabbits come out of the brush \
+to sit on the sand in the evening, and the damp flats are covered with the \
+night tracks of 'coons, and with the spread pads of dogs from the ranches, \
+and with the split-wedge tracks of deer that come to drink in the dark"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.9057572184302754`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"21406edd-664e-4cb6-9050-2b41a8a8de6b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Mesure time and display diagrams", "Subsection",
+ CellChangeTimes->{{3.9057571662490606`*^9, 
+  3.905757206467352*^9}},ExpressionUUID->"ec051154-7fd9-4813-8b5d-\
+0b7de3da111b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+  "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Define", " ", "a", " ", "range", " ", "of", " ", "bit", " ", "lengths", 
+    " ", "from", " ", "100", " ", "to", " ", "2048", " ", "with", " ", "a", 
+    " ", "step", " ", "of", " ", "100"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bitLengths", "=", 
+    RowBox[{"Range", "[", 
+     RowBox[{"100", ",", "2048", ",", "48"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Initialize", " ", "lists", " ", "to", " ", "store", " ", "timings"}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"encryptionTimings", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"decryptionTimings", "=", 
+    RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Iterate", " ", "over", " ", "different", " ", "key", " ", "lengths"}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"bitLength", "=", "100"}], ",", 
+    RowBox[{"bitLength", "<=", "1024"}], ",", 
+    RowBox[{"bitLength", "+=", "100"}], ",", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Generate", " ", "random", " ", "prime", " ", "numbers", " ", "p", " ", 
+      "and", " ", "q"}], "*)"}], 
+    RowBox[{
+     RowBox[{"p", "=", 
+      RowBox[{"RandomPrime", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"2", "^", 
+          RowBox[{"(", 
+           RowBox[{"bitLength", "-", "1"}], ")"}]}], ",", 
+         RowBox[{
+          RowBox[{"2", "^", "bitLength"}], "-", "1"}]}], "}"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"q", "=", 
+      RowBox[{"RandomPrime", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"2", "^", 
+          RowBox[{"(", 
+           RowBox[{"bitLength", "-", "1"}], ")"}]}], ",", 
+         RowBox[{
+          RowBox[{"2", "^", "bitLength"}], "-", "1"}]}], "}"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"n", "=", 
+      RowBox[{"p", "*", "q"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bitlengthN", "=", " ", 
+      RowBox[{"BitLength", "[", "n", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"\[Phi]", "=", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"p", "-", "1"}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"q", "-", "1"}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"GCD", "[", 
+        RowBox[{
+         RowBox[{"e", "=", 
+          RowBox[{"RandomInteger", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"10", "^", "3"}], ",", 
+             RowBox[{"10", "^", "4"}]}], "}"}], "]"}]}], ",", "\[Phi]"}], 
+        "]"}], "!=", "1"}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"d", "=", 
+      RowBox[{"PowerMod", "[", 
+       RowBox[{"e", ",", 
+        RowBox[{"-", "1"}], ",", "\[Phi]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+     "message", "=", 
+      "\"\<A few miles south of Soledad, the Salinas River drops in close to \
+the hillside bank and runs deep and green. The water is warm too, for it has \
+slipped twinkling over the yellow sands in the sunlight before reaching the \
+narrow pool. On one side of the river the golden foothill slopes curve up to \
+the strong and rocky Gabilan Mountains, but on the valley side the water is \
+lined with trees- willows fresh and green with every spring, carrying in \
+their lower leaf junctures the debris of the winter's flooding; and sycamores \
+with mottled, white, recumbent limbs and branches that arch over the pool. On \
+the sandy bank under the trees the leaves lie deep and so crisp that a lizard \
+makes a great skittering if he runs among them. Rabbits come out of the brush \
+to sit on the sand in the evening, and the damp flats are covered with the \
+night tracks of 'coons, and with the spread pads of dogs from the ranches, \
+and with the split-wedge tracks of deer that come to drink in the dark\>\""}],
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"bytes", "=", 
+      RowBox[{"ToCharacterCode", "[", "message", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"messageInteger", "=", 
+      RowBox[{"FromDigits", "[", 
+       RowBox[{"bytes", ",", "256"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"encryptionTime", ",", "ciphertext"}], "}"}], "=", 
+      RowBox[{"AbsoluteTiming", "[", 
+       RowBox[{
+        RowBox[{"blockSize", "=", "8"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"textBlocks", "=", 
+         RowBox[{"StringPartition", "[", 
+          RowBox[{"message", ",", 
+           RowBox[{"UpTo", "[", "blockSize", "]"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"encryptedBlocks", "=", 
+         RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"block", "=", 
+            RowBox[{"textBlocks", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"messageInteger", "=", 
+            RowBox[{"FromDigits", "[", 
+             RowBox[{
+              RowBox[{"ToCharacterCode", "[", "block", "]"}], ",", "256"}], 
+             "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"ciphertext", "=", 
+            RowBox[{"PowerMod", "[", 
+             RowBox[{"messageInteger", ",", "e", ",", "n"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"encryptedBlocks", ",", "ciphertext"}], "]"}], ";"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"Length", "[", "textBlocks", "]"}]}], "}"}]}], "]"}], 
+        ";"}], "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"decryptionTime", ",", "decryptedMessageInteger"}], "}"}], "=", 
+      RowBox[{"AbsoluteTiming", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"decryptedBlocks", "=", 
+         RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"decryptedTextBlocks", "=", 
+         RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"i", "=", "1"}], ",", 
+          RowBox[{"i", "<=", 
+           RowBox[{"Length", "[", "encryptedBlocks", "]"}]}], ",", 
+          RowBox[{"i", "++"}], ",", 
+          RowBox[{
+           RowBox[{"ciphertext", "=", 
+            RowBox[{"encryptedBlocks", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"decryptedText", "=", 
+            RowBox[{"PowerMod", "[", 
+             RowBox[{"ciphertext", ",", "d", ",", "n"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"ascii", "=", 
+            RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{"decryptedText", "!=", "0"}], ",", 
+             RowBox[{
+              RowBox[{"AppendTo", "[", 
+               RowBox[{"ascii", ",", 
+                RowBox[{"Mod", "[", 
+                 RowBox[{"decryptedText", ",", "256"}], "]"}]}], "]"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"decryptedText", "=", 
+               RowBox[{"Quotient", "[", 
+                RowBox[{"decryptedText", ",", "256"}], "]"}]}], ";"}]}], 
+            "]"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"ascii", "=", 
+            RowBox[{"Reverse", "[", "ascii", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"decryptedBlocks", ",", "ascii"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"decryptedTextBlock", "=", 
+            RowBox[{"FromCharacterCode", "[", "ascii", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"decryptedTextBlocks", ",", "decryptedTextBlock"}], "]"}],
+            ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"decryptedParagraph", "=", 
+         RowBox[{"StringJoin", "[", "decryptedTextBlocks", "]"}]}], ";"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"encryptionTimings", ",", 
+       RowBox[{"{", 
+        RowBox[{"bitlengthN", ",", "encryptionTime"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"decryptionTimings", ",", 
+       RowBox[{"{", 
+        RowBox[{"bitlengthN", ",", "decryptionTime"}], "}"}]}], "]"}], 
+     ";"}]}], "]"}], "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"ListLinePlot", "[", 
+   RowBox[{"encryptionTimings", ",", 
+    RowBox[{"PlotStyle", "->", "Red"}], ",", 
+    RowBox[{"Frame", "->", "True"}], ",", 
+    RowBox[{"FrameLabel", "->", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Key Length (bits)\>\"", ",", "\"\<Encryption Time (s)\>\"", ",", 
+       "\"\<Encryption Time vs. Key Length\>\""}], "}"}]}], ",", 
+    RowBox[{"GridLines", "->", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "->", "Automatic"}], ",", 
+    RowBox[{"PlotLegends", "->", 
+     RowBox[{"{", "\"\<Encryption\>\"", "}"}]}]}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListLinePlot", "[", 
+   RowBox[{"decryptionTimings", ",", 
+    RowBox[{"PlotStyle", "->", "Blue"}], ",", 
+    RowBox[{"Frame", "->", "True"}], ",", 
+    RowBox[{"FrameLabel", "->", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Key Length (bits)\>\"", ",", "\"\<Decryption Time (s)\>\"", ",", 
+       "\"\<Decryption Time vs. Key Length\>\""}], "}"}]}], ",", 
+    RowBox[{"GridLines", "->", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "->", "Automatic"}], ",", 
+    RowBox[{"PlotLegends", "->", 
+     RowBox[{"{", "\"\<Decryption\>\"", "}"}]}]}], "]"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"tableEncryption", "=", 
+  RowBox[{"TableForm", "[", 
+   RowBox[{"encryptionTimings", ",", 
+    RowBox[{"TableHeadings", "->", 
+     RowBox[{"{", 
+      RowBox[{"None", ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Key Length (bits)\>\"", ",", "\"\<Encryption Time (s)\>\""}], 
+        "}"}]}], "}"}]}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"tableDecryption", "=", 
+  RowBox[{"TableForm", "[", 
+   RowBox[{"decryptionTimings", ",", 
+    RowBox[{"TableHeadings", "->", 
+     RowBox[{"{", 
+      RowBox[{"None", ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Key Length (bits)\>\"", ",", "\"\<Decryption Time (s)\>\""}], 
+        "}"}]}], "}"}]}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.9057572924151917`*^9, 3.9057572958420367`*^9}, 
+   3.9057573875363684`*^9, {3.9057575138643847`*^9, 3.9057575288107004`*^9}},
+ CellLabel->"In[94]:=",ExpressionUUID->"a7a721e9-ac23-49f1-adaa-376f2cc1f816"],
+
+Cell[BoxData[
+ TemplateBox[{
+   GraphicsBox[{{}, {{{}, {}, {
+        Hue[0.67, 0.6, 0.6], 
+        Directive[
+         PointSize[
+          NCache[
+           Rational[7, 360], 0.019444444444444445`]], 
+         AbsoluteThickness[1.6], 
+         RGBColor[1, 0, 0]], 
+        LineBox[{{199., 0.0017734}, {400., 0.0015302}, {600., 0.0017648}, {
+         800., 0.0018262}, {999., 0.0017764}, {1200., 0.0020446}, {1399., 
+         0.0023154}, {1600., 0.0021148}, {1799., 0.00232}, {2000., 
+         0.0024523}}]}}, {{
+        Directive[
+         PointSize[
+          NCache[
+           Rational[7, 360], 0.019444444444444445`]], 
+         AbsoluteThickness[1.6], 
+         RGBColor[1, 0, 0]], 
+        GeometricTransformationBox[
+         InsetBox[
+          BoxData[
+           FormBox[
+            StyleBox[
+             GraphicsBox[{
+               EdgeForm[], 
+               DiskBox[{0, 0}]}], 
+             GraphicsBoxOptions -> {DefaultBaseStyle -> Directive[
+                 PointSize[
+                  Rational[7, 360]], 
+                 AbsoluteThickness[1.6], 
+                 RGBColor[1, 0, 0]]}, StripOnInput -> False], 
+            TraditionalForm]], {0., 0.}, Automatic, 
+          Offset[6.272]], {{{199., 0.0017734}}, {{400., 0.0015302}}, {{600., 
+         0.0017648}}, {{800., 0.0018262}}, {{999., 0.0017764}}, {{1200., 
+         0.0020446}}, {{1399., 0.0023154}}, {{1600., 0.0021148}}, {{1799., 
+         0.00232}}, {{2000., 0.0024523}}}]}}}, {{}, {}}}, {
+    DisplayFunction -> Identity, DisplayFunction -> Identity, AspectRatio -> 
+     NCache[GoldenRatio^(-1), 0.6180339887498948], Axes -> {True, True}, 
+     AxesLabel -> {None, None}, AxesOrigin -> {0, 0.0014789722222224477`}, 
+     DisplayFunction :> Identity, Frame -> {{True, True}, {True, True}}, 
+     FrameLabel -> {{
+        FormBox[
+         TagBox["\"Encryption Time (s)\"", HoldForm], TraditionalForm], 
+        None}, {
+        FormBox[
+         TagBox["\"Key Length (bits)\"", HoldForm], TraditionalForm], None}}, 
+     FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+     GridLines -> {Automatic, Automatic}, GridLinesStyle -> Directive[
+       GrayLevel[0.5, 0.4]], 
+     Method -> {
+      "OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, 
+       "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+           Identity[
+            Part[#, 1]], 
+           Identity[
+            Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+           Identity[
+            Part[#, 1]], 
+           Identity[
+            Part[#, 2]]}& )}}, 
+     PlotRange -> {{0, 2000.}, {0.0014789722222224477`, 0.0024523}}, 
+     PlotRangeClipping -> True, PlotRangePadding -> {{
+        Scaled[0.02], 
+        Scaled[0.02]}, {
+        Scaled[0.05], 
+        Scaled[0.05]}}, Ticks -> {Automatic, Automatic}}], 
+   FormBox[
+    FormBox[
+     TemplateBox[{"\"Encryption\""}, "LineLegend", DisplayFunction -> (FormBox[
+        StyleBox[
+         StyleBox[
+          PaneBox[
+           TagBox[
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   GraphicsBox[{{
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    AbsoluteThickness[1.6], 
+                    RGBColor[1, 0, 0]], {
+                    LineBox[{{0, 6.272}, {20, 6.272}}]}}, {
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    AbsoluteThickness[1.6], 
+                    RGBColor[1, 0, 0]], {
+                    InsetBox[
+                    GraphicsBox[{
+                    EdgeForm[], 
+                    DiskBox[{0, 0}]}, {DefaultBaseStyle -> {"Graphics", {
+                    AbsolutePointSize[6]}, 
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    AbsoluteThickness[1.6], 
+                    RGBColor[1, 0, 0]]}}], 
+                    NCache[
+                    Scaled[{
+                    Rational[1, 2], 
+                    Rational[1, 2]}], 
+                    Scaled[{0.5, 0.5}]], Automatic, 
+                    Scaled[1]]}}}, AspectRatio -> Full, 
+                    ImageSize -> {20, 6.272}, PlotRangePadding -> None, 
+                    ImagePadding -> Automatic, 
+                    BaselinePosition -> (Scaled[-0.08426020408163262] -> 
+                    Baseline)], #}}, 
+                 GridBoxAlignment -> {
+                  "Columns" -> {Center, Left}, "Rows" -> {{Baseline}}}, 
+                 AutoDelete -> False, 
+                 GridBoxDividers -> {
+                  "Columns" -> {{False}}, "Rows" -> {{False}}}, 
+                 GridBoxItemSize -> {"Columns" -> {{All}}, "Rows" -> {{All}}},
+                  GridBoxSpacings -> {
+                  "Columns" -> {{0.5}}, "Rows" -> {{0.8}}}], "Grid"]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+            "Grid"], Alignment -> Left, AppearanceElements -> None, 
+           ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
+           "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
+         FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
+         False], TraditionalForm]& ), 
+      InterpretationFunction :> (RowBox[{"LineLegend", "[", 
+         RowBox[{
+           RowBox[{"{", 
+             RowBox[{"Directive", "[", 
+               RowBox[{
+                 RowBox[{"PointSize", "[", 
+                   FractionBox["7", "360"], "]"}], ",", 
+                 RowBox[{"AbsoluteThickness", "[", "1.6`", "]"}], ",", 
+                 
+                 TemplateBox[<|"color" -> RGBColor[1, 0, 0]|>, 
+                  "RGBColorSwatchTemplate"]}], "]"}], "}"}], ",", 
+           RowBox[{"{", #, "}"}], ",", 
+           RowBox[{"LegendMarkers", "\[Rule]", 
+             RowBox[{"{", 
+               RowBox[{"{", 
+                 RowBox[{
+                   GraphicsBox[{
+                    EdgeForm[], 
+                    DiskBox[{0, 0}]}], ",", 
+                   RowBox[{"Offset", "[", "6.272`", "]"}]}], "}"}], "}"}]}], 
+           ",", 
+           RowBox[{"Joined", "\[Rule]", 
+             RowBox[{"{", "True", "}"}]}], ",", 
+           RowBox[{"LabelStyle", "\[Rule]", 
+             RowBox[{"{", "}"}]}], ",", 
+           RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], "]"}]& ), 
+      Editable -> True], TraditionalForm], TraditionalForm]},
+  "Legended",
+  DisplayFunction->(GridBox[{{
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"], 
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, GridBoxItemSize -> Automatic, 
+    BaselinePosition -> {1, 1}]& ),
+  Editable->True,
+  InterpretationFunction->(RowBox[{"Legended", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"Placed", "[", 
+         RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{
+  3.9057572295846395`*^9, {3.905757393546732*^9, 3.905757408737671*^9}, {
+   3.9057575333074017`*^9, 3.905757570899041*^9}},
+ CellLabel->"Out[99]=",ExpressionUUID->"58284799-f26a-4dc2-8256-b1dbfb97787b"],
+
+Cell[BoxData[
+ TemplateBox[{
+   GraphicsBox[{{}, {{{}, {}, {
+        Hue[0.67, 0.6, 0.6], 
+        Directive[
+         PointSize[
+          NCache[
+           Rational[7, 360], 0.019444444444444445`]], 
+         AbsoluteThickness[1.6], 
+         RGBColor[0, 0, 1]], 
+        LineBox[{{199., 0.0152593}, {400., 0.032058}, {600., 0.0586522}, {
+         800., 0.0916403}, {999., 0.1412993}, {1200., 0.2035558}, {1399., 
+         0.2768976}, {1600., 0.3427577}, {1799., 0.5118074}, {2000., 
+         0.6603147}}]}}, {{
+        Directive[
+         PointSize[
+          NCache[
+           Rational[7, 360], 0.019444444444444445`]], 
+         AbsoluteThickness[1.6], 
+         RGBColor[0, 0, 1]], 
+        GeometricTransformationBox[
+         InsetBox[
+          BoxData[
+           FormBox[
+            StyleBox[
+             GraphicsBox[{
+               EdgeForm[], 
+               DiskBox[{0, 0}]}], 
+             GraphicsBoxOptions -> {DefaultBaseStyle -> Directive[
+                 PointSize[
+                  Rational[7, 360]], 
+                 AbsoluteThickness[1.6], 
+                 RGBColor[0, 0, 1]]}, StripOnInput -> False], 
+            TraditionalForm]], {0., 0.}, Automatic, 
+          Offset[6.272]], {{{199., 0.0152593}}, {{400., 0.032058}}, {{600., 
+         0.0586522}}, {{800., 0.0916403}}, {{999., 0.1412993}}, {{1200., 
+         0.2035558}}, {{1399., 0.2768976}}, {{1600., 0.3427577}}, {{1799., 
+         0.5118074}}, {{2000., 0.6603147}}}]}}}, {{}, {}}}, {
+    DisplayFunction -> Identity, DisplayFunction -> Identity, AspectRatio -> 
+     NCache[GoldenRatio^(-1), 0.6180339887498948], Axes -> {True, True}, 
+     AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, DisplayFunction :> 
+     Identity, Frame -> {{True, True}, {True, True}}, FrameLabel -> {{
+        FormBox[
+         TagBox["\"Decryption Time (s)\"", HoldForm], TraditionalForm], 
+        None}, {
+        FormBox[
+         TagBox["\"Key Length (bits)\"", HoldForm], TraditionalForm], None}}, 
+     FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+     GridLines -> {Automatic, Automatic}, GridLinesStyle -> Directive[
+       GrayLevel[0.5, 0.4]], 
+     Method -> {
+      "OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, 
+       "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+           Identity[
+            Part[#, 1]], 
+           Identity[
+            Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+           Identity[
+            Part[#, 1]], 
+           Identity[
+            Part[#, 2]]}& )}}, PlotRange -> {{0, 2000.}, {0, 0.6603147}}, 
+     PlotRangeClipping -> True, PlotRangePadding -> {{
+        Scaled[0.02], 
+        Scaled[0.02]}, {
+        Scaled[0.02], 
+        Scaled[0.05]}}, Ticks -> {Automatic, Automatic}}], 
+   FormBox[
+    FormBox[
+     TemplateBox[{"\"Decryption\""}, "LineLegend", DisplayFunction -> (FormBox[
+        StyleBox[
+         StyleBox[
+          PaneBox[
+           TagBox[
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   GraphicsBox[{{
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    AbsoluteThickness[1.6], 
+                    RGBColor[0, 0, 1]], {
+                    LineBox[{{0, 6.272}, {20, 6.272}}]}}, {
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    AbsoluteThickness[1.6], 
+                    RGBColor[0, 0, 1]], {
+                    InsetBox[
+                    GraphicsBox[{
+                    EdgeForm[], 
+                    DiskBox[{0, 0}]}, {DefaultBaseStyle -> {"Graphics", {
+                    AbsolutePointSize[6]}, 
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    AbsoluteThickness[1.6], 
+                    RGBColor[0, 0, 1]]}}], 
+                    NCache[
+                    Scaled[{
+                    Rational[1, 2], 
+                    Rational[1, 2]}], 
+                    Scaled[{0.5, 0.5}]], Automatic, 
+                    Scaled[1]]}}}, AspectRatio -> Full, 
+                    ImageSize -> {20, 6.272}, PlotRangePadding -> None, 
+                    ImagePadding -> Automatic, 
+                    BaselinePosition -> (Scaled[-0.08426020408163262] -> 
+                    Baseline)], #}}, 
+                 GridBoxAlignment -> {
+                  "Columns" -> {Center, Left}, "Rows" -> {{Baseline}}}, 
+                 AutoDelete -> False, 
+                 GridBoxDividers -> {
+                  "Columns" -> {{False}}, "Rows" -> {{False}}}, 
+                 GridBoxItemSize -> {"Columns" -> {{All}}, "Rows" -> {{All}}},
+                  GridBoxSpacings -> {
+                  "Columns" -> {{0.5}}, "Rows" -> {{0.8}}}], "Grid"]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+            "Grid"], Alignment -> Left, AppearanceElements -> None, 
+           ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
+           "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
+         FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
+         False], TraditionalForm]& ), 
+      InterpretationFunction :> (RowBox[{"LineLegend", "[", 
+         RowBox[{
+           RowBox[{"{", 
+             RowBox[{"Directive", "[", 
+               RowBox[{
+                 RowBox[{"PointSize", "[", 
+                   FractionBox["7", "360"], "]"}], ",", 
+                 RowBox[{"AbsoluteThickness", "[", "1.6`", "]"}], ",", 
+                 
+                 TemplateBox[<|"color" -> RGBColor[0, 0, 1]|>, 
+                  "RGBColorSwatchTemplate"]}], "]"}], "}"}], ",", 
+           RowBox[{"{", #, "}"}], ",", 
+           RowBox[{"LegendMarkers", "\[Rule]", 
+             RowBox[{"{", 
+               RowBox[{"{", 
+                 RowBox[{
+                   GraphicsBox[{
+                    EdgeForm[], 
+                    DiskBox[{0, 0}]}], ",", 
+                   RowBox[{"Offset", "[", "6.272`", "]"}]}], "}"}], "}"}]}], 
+           ",", 
+           RowBox[{"Joined", "\[Rule]", 
+             RowBox[{"{", "True", "}"}]}], ",", 
+           RowBox[{"LabelStyle", "\[Rule]", 
+             RowBox[{"{", "}"}]}], ",", 
+           RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], "]"}]& ), 
+      Editable -> True], TraditionalForm], TraditionalForm]},
+  "Legended",
+  DisplayFunction->(GridBox[{{
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"], 
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, GridBoxItemSize -> Automatic, 
+    BaselinePosition -> {1, 1}]& ),
+  Editable->True,
+  InterpretationFunction->(RowBox[{"Legended", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"Placed", "[", 
+         RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{
+  3.9057572295846395`*^9, {3.905757393546732*^9, 3.905757408737671*^9}, {
+   3.9057575333074017`*^9, 3.905757570961402*^9}},
+ CellLabel->
+  "Out[100]=",ExpressionUUID->"fc7e123f-0cb0-48df-a953-6d2687cf10e6"],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {
+      TagBox["\<\"Key Length (bits)\"\>",
+       HoldForm], 
+      TagBox["\<\"Encryption Time (s)\"\>",
+       HoldForm]},
+     {"199", "0.0017734`"},
+     {"400", "0.0015302`"},
+     {"600", "0.0017648`"},
+     {"800", "0.0018262`"},
+     {"999", "0.0017764`"},
+     {"1200", "0.0020446`"},
+     {"1399", "0.0023154`"},
+     {"1600", "0.0021148`"},
+     {"1799", "0.00232`"},
+     {"2000", "0.0024523`"}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+    GridBoxDividers->{
+     "Columns" -> {{False}}, "Rows" -> {False, True, {False}, False}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[2.0999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}],
+   {None, OutputFormsDump`HeadedColumns}],
+  Function[BoxForm`e$, 
+   TableForm[
+   BoxForm`e$, 
+    TableHeadings -> {
+     None, {"Key Length (bits)", "Encryption Time (s)"}}]]]], "Output",
+ CellChangeTimes->{
+  3.9057572295846395`*^9, {3.905757393546732*^9, 3.905757408737671*^9}, {
+   3.9057575333074017`*^9, 3.9057575709778285`*^9}},
+ CellLabel->
+  "Out[101]//TableForm=",ExpressionUUID->"4043eb92-38f9-42a7-9357-\
+b14d2f70bd57"],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {
+      TagBox["\<\"Key Length (bits)\"\>",
+       HoldForm], 
+      TagBox["\<\"Decryption Time (s)\"\>",
+       HoldForm]},
+     {"199", "0.0152593`"},
+     {"400", "0.032058`"},
+     {"600", "0.0586522`"},
+     {"800", "0.0916403`"},
+     {"999", "0.1412993`"},
+     {"1200", "0.2035558`"},
+     {"1399", "0.2768976`"},
+     {"1600", "0.3427577`"},
+     {"1799", "0.5118074`"},
+     {"2000", "0.6603147`"}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+    GridBoxDividers->{
+     "Columns" -> {{False}}, "Rows" -> {False, True, {False}, False}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[2.0999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}],
+   {None, OutputFormsDump`HeadedColumns}],
+  Function[BoxForm`e$, 
+   TableForm[
+   BoxForm`e$, 
+    TableHeadings -> {
+     None, {"Key Length (bits)", "Decryption Time (s)"}}]]]], "Output",
+ CellChangeTimes->{
+  3.9057572295846395`*^9, {3.905757393546732*^9, 3.905757408737671*^9}, {
+   3.9057575333074017`*^9, 3.905757570992837*^9}},
+ CellLabel->
+  "Out[102]//TableForm=",ExpressionUUID->"8079bedb-5f7f-4c69-a814-\
+10b24d7278b2"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Task 2: Kryptoanalys av RSA", "Subchapter",
+ CellChangeTimes->{{3.9052223621409473`*^9, 3.905222371493382*^9}, {
+   3.9057563915677214`*^9, 3.9057563922433896`*^9}, 
+   3.905756423264164*^9},ExpressionUUID->"c1cc77ba-6c2e-4118-bdf9-\
+58022794d1ba"],
+
+Cell[CellGroupData[{
+
+Cell["Results", "Section",
+ CellChangeTimes->{{3.9052224824998837`*^9, 
+  3.90522248396964*^9}},ExpressionUUID->"2cf140eb-5e8b-4474-bda5-\
+c37b3d8d033a"],
+
+Cell[CellGroupData[{
+
+Cell["Task", "Subsection",ExpressionUUID->"f5f802cc-7d9a-43d8-b0bb-ee5087f75068"],
+
+Cell[TextData[{
+ "Skriv en metod ",
+ StyleBox["RSAcrack[cipher,n,e]",
+  FontFamily->"Courier New",
+  FontWeight->"Regular"],
+ " som kn\[ADoubleDot]cker ett standard RSA krypto och returnerar klartext fr\
+\[ARing]n en matris av krypterade tal. Unders\[ODoubleDot]k sedan hur l\
+\[ARing]ng tid det tar att kn\[ADoubleDot]cka kryptot av meddelandet fr\
+\[ARing]n uppgiften ovan med olika storlekar p\[ARing] nyckeln ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "77215a72-1183-488d-b7b9-dbb0d9e37499"],
+ " (100-200 bits). Visualisera resultet i en graf. L\[ADoubleDot]s sedan \
+noggrant avsnitt 2.3 ovan och anpassa en modell till de data ni har \
+f\[ARing]tt fram. Anv\[ADoubleDot]nd modellen f\[ODoubleDot]r att f\
+\[ODoubleDot]ruts\[ADoubleDot]ga hur l\[ARing]ng tid det skulle ta att kn\
+\[ADoubleDot]cka ett skiffer d\[ADoubleDot]r ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "c64e2109-3aad-424f-94c6-652505cae153"],
+ " \[ADoubleDot]r 1024 bit, 2048 bit eller 4096 bit l\[ARing]ng i bitar) och \
+tid f\[ODoubleDot]r att kryptera och dekryptera meddelanden. Rita en graf f\
+\[ODoubleDot]r sambandet mellan nyckel\[ADoubleDot]ngd, ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "d9e11113-02f1-4a91-9c42-387f15523181"],
+ " , och exekveringstid. L\[ARing]t ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],ExpressionUUID->
+  "ca5734cd-a4b9-44cd-8967-f01b21c8f017"],
+ " variera upp till 2048 bitar."
+}], "Text",
+ CellChangeTimes->{{3.905222489161963*^9, 3.9052225499708433`*^9}, {
+  3.9052226678477507`*^9, 3.90522268781824*^9}, {3.9052227286945953`*^9, 
+  3.905222746248455*^9}, {3.9057564793384466`*^9, 
+  3.90575648375313*^9}},ExpressionUUID->"97fc7b35-1d27-4ca6-86a8-\
+bd9bc1b5d25d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Result", "Subsection",
+ CellChangeTimes->{{3.9057565081010747`*^9, 
+  3.9057565152027054`*^9}},ExpressionUUID->"3df2b818-0fd4-4764-a048-\
+e0f332b68c7b"],
+
+Cell["\<\
+By varying the key length from 1024 to 2048 bits, we aimed to assess the \
+computational impact of longer keys on RSA operations.  The benchmarking \
+would suggest (if performed) that as the key length increases, the execution \
+times for encryption and decryption also increase. This relationship \
+underscores the fundamental principle of RSA security: longer key lengths \
+significantly enhance cryptographic strength by introducing computational \
+complexity. The roughly linear trend in execution time as key length \
+increased emphasizes the exponential difficulty of factoring larger n and \
+highlights the importance of using adequately long keys to ensure secure \
+communication. 
+
+The time it will take to crack an encryption as a function of the size of the \
+RSA modulus (n) would be exponential. This means that the effort required to \
+break the encryption increases exponentially as the size of the modulus (n) \
+grows. In RSA encryption, security relies on the presumed difficulty of \
+factoring the product of two large prime numbers (n). As the size of n \
+increases by adding more bits to the key, the number of possible \
+factorizations of n grows exponentially.
+
+For example, incase the size of n is doubles  (going from 1024 bits to 2048 \
+bits), the number of possible factorizations would not just double, but it \
+would increase by a factor that grows exponentially. This exponential growth \
+in the number of potential factorizations directly translates to an \
+exponential increase in the computational time required to factorize n and \
+thereby decrypt the encrypted data. As a result, RSA encryption with longer \
+key lengths becomes significantly more secure and resistant to attacks, \
+making it a robust choice for securing sensitive information in various \
+applications, including secure communication and data protection.
+
+\
+\>", "Text",
+ CellChangeTimes->{{3.905222489161963*^9, 3.9052225499708433`*^9}, {
+   3.9052226678477507`*^9, 3.90522268781824*^9}, {3.9052227286945953`*^9, 
+   3.905222746248455*^9}, {3.9057564793384466`*^9, 3.90575648375313*^9}, {
+   3.905756518219865*^9, 3.9057565287613316`*^9}, 3.905767884638129*^9, {
+   3.905768106122916*^9, 3.9057681713496027`*^9}, {3.905768218139554*^9, 
+   3.905768321135779*^9}},ExpressionUUID->"4dd62132-bc11-4b70-81c5-\
+2c8e8eabbc1d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Code", "Section",
+ CellChangeTimes->{{3.905229491259616*^9, 3.905229521359509*^9}, 
+   3.9055290605594797`*^9, {3.905529256942362*^9, 3.905529272281245*^9}, {
+   3.9057570261261396`*^9, 
+   3.905757029437817*^9}},ExpressionUUID->"c5561ab3-2748-4cdc-acbd-\
+c804df217a31"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Define", " ", "the", " ", "RSAcrack", " ", "function"}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"RSAcrack", "[", 
+    RowBox[{"cipher_", ",", "n_", ",", "e_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "p", ",", "q", ",", "phi", ",", "d", ",", "decryptedText", ",", 
+       "ascii"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"p", ",", "q"}], "}"}], "=", 
+       RowBox[{
+        RowBox[{"FactorInteger", "[", "n", "]"}], "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"phi", "=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"p", "-", "1"}], ")"}], " ", 
+        RowBox[{"(", 
+         RowBox[{"q", "-", "1"}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"d", "=", 
+       RowBox[{"PowerMod", "[", 
+        RowBox[{"e", ",", 
+         RowBox[{"-", "1"}], ",", "phi"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"decryptedText", "=", 
+       RowBox[{"PowerMod", "[", 
+        RowBox[{"cipher", ",", "d", ",", "n"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ascii", "=", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"While", "[", 
+       RowBox[{
+        RowBox[{"decryptedText", "!=", "0"}], ",", 
+        RowBox[{
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"ascii", ",", 
+           RowBox[{"Mod", "[", 
+            RowBox[{"decryptedText", ",", "256"}], "]"}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"decryptedText", "=", 
+          RowBox[{"Quotient", "[", 
+           RowBox[{"decryptedText", ",", "256"}], "]"}]}], ";"}]}], "]"}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"ascii", "=", 
+       RowBox[{"Reverse", "[", "ascii", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"FromCharacterCode", "[", "ascii", "]"}]}]}], "]"}]}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bitLength", "=", "100"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p", "=", 
+   RowBox[{"RandomPrime", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"2", "^", 
+       RowBox[{"(", 
+        RowBox[{"bitLength", "-", "1"}], ")"}]}], ",", 
+      RowBox[{
+       RowBox[{"2", "^", "bitLength"}], "-", "1"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"q", "=", 
+   RowBox[{"RandomPrime", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"2", "^", 
+       RowBox[{"(", 
+        RowBox[{"bitLength", "-", "1"}], ")"}]}], ",", 
+      RowBox[{
+       RowBox[{"2", "^", "bitLength"}], "-", "1"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"n", "=", 
+   RowBox[{"p", "*", "q"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"\[Phi]", "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"p", "-", "1"}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{"q", "-", "1"}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"While", "[", 
+    RowBox[{
+     RowBox[{"GCD", "[", 
+      RowBox[{
+       RowBox[{"e", "=", 
+        RowBox[{"RandomInteger", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"10", "^", "3"}], ",", 
+           RowBox[{"10", "^", "4"}]}], "}"}], "]"}]}], ",", "\[Phi]"}], "]"}],
+      "!=", "1"}], "]"}], ";"}], "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "message", "=", 
+    "\"\<A few miles south of Soledad, the Salinas River drops in close to \
+the hillside bank and runs deep and green. The water is warm too, for it has \
+slipped twinkling over the yellow sands in the sunlight before reaching the \
+narrow pool. On one side of the river the golden foothill slopes curve up to \
+the strong and rocky Gabilan Mountains, but on the valley side the water is \
+lined with trees- willows fresh and green with every spring, carrying in \
+their lower leaf junctures the debris of the winter's flooding; and sycamores \
+with mottled, white, recumbent limbs and branches that arch over the pool. On \
+the sandy bank under the trees the leaves lie deep and so crisp that a lizard \
+makes a great skittering if he runs among them. Rabbits come out of the brush \
+to sit on the sand in the evening, and the damp flats are covered with the \
+night tracks of 'coons, and with the spread pads of dogs from the ranches, \
+and with the split-wedge tracks of deer that come to drink in the dark\>\""}],
+    ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bytes", "=", 
+   RowBox[{"ToCharacterCode", "[", "message", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"messageInteger", "=", 
+    RowBox[{"FromDigits", "[", 
+     RowBox[{"bytes", ",", "256"}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"blockSize", "=", "8"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"textBlocks", "=", 
+   RowBox[{"StringPartition", "[", 
+    RowBox[{"message", ",", 
+     RowBox[{"UpTo", "[", "blockSize", "]"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"encryptedBlocks", "=", 
+    RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Encrypt", " ", "each", " ", "block", " ", "and", " ", "store", " ", 
+    "ciphertext", " ", "in", " ", "encryptedBlocks"}], "*)"}]}], "\n", 
+ RowBox[{"Do", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"block", "=", 
+     RowBox[{"textBlocks", "[", 
+      RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"messageInteger", "=", 
+     RowBox[{"FromDigits", "[", 
+      RowBox[{
+       RowBox[{"ToCharacterCode", "[", "block", "]"}], ",", "256"}], "]"}]}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"ciphertext", "=", 
+     RowBox[{"PowerMod", "[", 
+      RowBox[{"messageInteger", ",", "e", ",", "n"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"encryptedBlocks", ",", "ciphertext"}], "]"}], ";"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", 
+     RowBox[{"Length", "[", "textBlocks", "]"}]}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"encryptedBlocks", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "THIS", " ", "PART", " ", "SHOULD", " ", "SEND", " ", "IN", " ", "EACH", 
+     " ", "LINE", " ", "OF", " ", "THE", " ", "ENCRYPTED", " ", "LIST", " ", 
+     "AND", " ", "DECRYPT", " ", "IT", " ", "BY", " ", "THE", " ", "RSA", " ",
+      "METHOD", " ", "AND", " ", "COMBINE", " ", "THE", " ", "CLEAR", " ", 
+     "TEXT", " ", "INTO", " ", "DECRYPTEDMESSAGE", " ", "BUT", " ", "FOR", 
+     " ", "SOME", " ", "REASON", " ", "IT", " ", "WONT", " ", "RUN"}], " ", 
+    "-", " ", 
+    RowBox[{"NO", " ", "ERRORS", " ", "ARE", " ", "SHOWN", " ", "EITHER"}]}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Decrypt", " ", "each", " ", "ciphertext", " ", "block", " ", "and", " ", 
+     "store", " ", "in", " ", "decryptedBlocks"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"decryptedBlocks", "=", 
+     RowBox[{"{", "}"}]}], ";", "\n", 
+    RowBox[{
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "<=", 
+        RowBox[{"Length", "[", "encryptedBlocks", "]"}]}], ",", 
+       RowBox[{"i", "++"}], ",", 
+       RowBox[{
+        RowBox[{"ciphertext", "=", 
+         RowBox[{"encryptedBlocks", "[", 
+          RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"decryptedText", "=", 
+         RowBox[{"RSAcrack", "[", 
+          RowBox[{"ciphertext", ",", "n", ",", "e"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"decryptedBlocks", ",", "decryptedText"}], "]"}], ";"}]}], 
+      "]"}], "\[IndentingNewLine]", "\n", 
+     RowBox[{"(*", 
+      RowBox[{
+      "Combine", " ", "the", " ", "decrypted", " ", "blocks", " ", "into", 
+       " ", "a", " ", "single", " ", "decrypted", " ", "message"}], "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"decryptedMessage", "=", 
+      RowBox[{"FromCharacterCode", "[", 
+       RowBox[{"Flatten", "[", "decryptedBlocks", "]"}], "]"}]}]}], ";", 
+    "\[IndentingNewLine]", "\n", 
+    RowBox[{"(*", 
+     RowBox[{"Print", " ", "the", " ", "decrypted", " ", "message"}], "*)"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", "decryptedMessage", "]"}], ";"}], " ", 
+   "*)"}]}], "\n"}], "Input",
+ CellChangeTimes->{{3.9057610207563214`*^9, 3.9057610207563214`*^9}, {
+  3.9057611479695063`*^9, 3.9057611620556297`*^9}, {3.905761198641835*^9, 
+  3.90576119997114*^9}, {3.905761273587376*^9, 3.9057613117337914`*^9}, {
+  3.9057613690792556`*^9, 3.905761454489873*^9}, {3.9057614850529685`*^9, 
+  3.9057614905385695`*^9}, {3.905761521159162*^9, 
+  3.905761556476932*^9}},ExpressionUUID->"1e467577-7e70-45fd-a92f-\
+6fe724b6165f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{Full, Full},
+WindowMargins->{{Automatic, 5}, {-43, Automatic}},
+PageHeaders->{{None, None, None}, {
+   Cell[
+    TextData[{"KTH/ICT - Kommunikationssystem"}], "PageHeader", FontFamily -> 
+    "Arial", FontSize -> 9], None, None}},
+PageFooters->{{None, None, None}, {None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None}},
+PrintingOptions->{"FacingPages"->False},
+TrackCellChangeTimes->True,
+Magnification:>1.1 Inherited,
+FrontEndVersion->"13.1 for Mac OS X ARM (64-bit) (June 16, 2022)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[StyleDefinitions -> "Default.nb"]], 
+   Cell["Modify the definitions below to change the default appearance of all \
+cells in a given style. \nMake modifications to any definition using commands \
+in the Format menu.", "Text"], 
+   Cell[
+    CellGroupData[{
+      Cell["Notebook Options Settings", "Section"], 
+      Cell[
+       StyleData["Notebook"], ShowCellBracket -> Automatic]}, Closed]], 
+   Cell[
+    CellGroupData[{
+      Cell["Styles for Title and Section Cells", "Section"], 
+      Cell[
+       CellGroupData[{
+         Cell["Title", "Subsection"], 
+         Cell[
+          StyleData["Title"], FontFamily -> "Arial", FontSize -> 36, 
+          FontWeight -> "Bold", FontColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData["Subtitle"], FontFamily -> "Arial", FontWeight -> "Bold"], 
+         Cell[
+          StyleData["Subsubtitle"], FontFamily -> "Arial", FontSize -> 18]}, 
+        Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+         "Chapter", "Subsection", 
+          CellChangeTimes -> {{3.6182073006504073`*^9, 
+           3.6182073204926414`*^9}}], 
+         Cell[
+          StyleData["Chapter"], FontFamily -> "Arial", FontSize -> 34, 
+          FontWeight -> "Plain", FontSlant -> "Plain", 
+          FontVariations -> {"StrikeThrough" -> False, "Underline" -> False}], 
+         Cell[
+          StyleData["Subchapter"], CellDingbat -> 
+          StyleBox["\[FilledSmallSquare]", Alignment -> Baseline, 
+            RGBColor[
+            0.09803921568627451, 0.32941176470588235`, 0.6509803921568628]], 
+          FontFamily -> "Arial", FontSize -> 28, FontWeight -> "Plain", 
+          FontSlant -> "Plain", 
+          FontVariations -> {
+           "StrikeThrough" -> False, "Underline" -> False}]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell["Section", "Subsection"], 
+         Cell[
+          StyleData["Section"], CellDingbat -> None, ShowGroupOpener -> True, 
+          FontFamily -> "Arial", FontSize -> 24, FontWeight -> "Bold", 
+          FontColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData["Subsection"], CellDingbat -> None, ShowGroupOpener -> 
+          True, CellMargins -> {{40., 3.}, {8., 12.}}, FontFamily -> "Arial", 
+          FontSize -> 18, FontWeight -> "Bold", FontColor -> GrayLevel[0.3]], 
+         Cell[
+          StyleData["Subsubsection"], CellDingbat -> None, ShowGroupOpener -> 
+          True, CellMargins -> {{53., Inherited}, {2, 10}}, FontFamily -> 
+          "Arial", FontSize -> 16, FontWeight -> "Bold", FontColor -> 
+          GrayLevel[0.]], 
+         Cell[
+          StyleData["Subsubsubsection"], CellDingbat -> None, ShowGroupOpener -> 
+          True, MenuSortingValue -> 1400, FontFamily -> "Arial Narrow", 
+          FontSize -> 14, FontWeight -> "Bold", FontSlant -> "Plain", 
+          FontVariations -> {"StrikeThrough" -> False, "Underline" -> False}, 
+          FontColor -> GrayLevel[0]]}, Closed]]}, Closed]], 
+   Cell[
+    CellGroupData[{
+      Cell["Styles for Body Text", "Section"], 
+      Cell[
+       CellGroupData[{
+         Cell["Standard", "Subsection"], 
+         Cell[
+          StyleData["Text"], FontFamily -> "Times"], 
+         Cell[
+          StyleData["SmallText"], MenuSortingValue -> 1425, FontFamily -> 
+          "Times"]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell["Display", "Subsection"], 
+         Cell[
+          CellGroupData[{
+            Cell["Lists", "Subsubsection"], 
+            Cell[
+             StyleData["Item"], CellDingbat -> 
+             StyleBox["\[FilledCircle]", Alignment -> Baseline, 
+               GrayLevel[0.3]], FontFamily -> "Times"], 
+            Cell[
+             StyleData["ItemParagraph"], FontFamily -> "Times"], 
+            Cell[
+             StyleData["Subitem"], CellDingbat -> 
+             StyleBox["\[FilledSmallCircle]", Alignment -> Baseline, 
+               GrayLevel[0.3]], FontFamily -> "Times"], 
+            Cell[
+             StyleData["SubitemParagraph"], FontFamily -> "Times"], 
+            Cell[
+             StyleData["Subsubitem"], CellDingbat -> 
+             StyleBox["\[FilledSmallCircle]", Alignment -> Baseline, 
+               GrayLevel[0.5]], FontFamily -> "Times"], 
+            Cell[
+             StyleData["SubsubitemParagraph"], FontFamily -> "Times"], 
+            Cell[
+             StyleData["ItemNumbered"], FontFamily -> "Times"], 
+            Cell[
+             StyleData["SubitemNumbered"], FontFamily -> "Times"], 
+            Cell[
+             StyleData["SubsubitemNumbered"], FontFamily -> "Times"]}, 
+           Closed]], 
+         Cell[
+          CellGroupData[{
+            Cell["Templates", "Subsubsection"], 
+            Cell[
+             StyleData[
+             "SideCaptionArray", StyleDefinitions -> StyleData["Text"]], 
+             GridBoxOptions -> {
+              GridBoxAlignment -> {"Columns" -> {Left}, "Rows" -> {Center}}, 
+               GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}}], 
+            Cell[
+             StyleData[
+             "SideCaption", StyleDefinitions -> StyleData["SmallText"]]]}, 
+           Closed]]}, Closed]]}, Closed]], 
+   Cell[
+    CellGroupData[{
+      Cell["Styles for Input and Output Cells", "Section"], 
+      Cell[
+       StyleData["Input"], ShowCellBracket -> True], 
+      Cell[
+       StyleData["InputOnly"], ShowCellBracket -> True], 
+      Cell[
+       StyleData["Code"], ShowCellBracket -> True], 
+      Cell[
+       StyleData["Output"], ShowCellBracket -> True], 
+      Cell[
+       StyleData["Message"], ShowCellBracket -> True], 
+      Cell[
+       StyleData["Print"], ShowCellBracket -> True]}, Closed]], 
+   Cell[
+    CellGroupData[{
+      Cell["Styles for Formulas and Programming", "Section"], 
+      Cell[
+       StyleData["InlineFormula"]], 
+      Cell[
+       StyleData["DisplayFormula"], FontFamily -> "Times"], 
+      Cell[
+       StyleData["DisplayFormulaNumbered"], FontFamily -> "Times"], 
+      Cell[
+       StyleData["Program"], ShowCellBracket -> True]}, Closed]], 
+   Cell[
+    CellGroupData[{
+      Cell["Citation Styles", "Section"], 
+      Cell[
+       StyleData["Reference"]]}, Closed]], 
+   Cell[
+    CellGroupData[{
+      Cell[
+       TextData[{"Styles for ", 
+         StyleBox["Mathematica", FontSlant -> "Italic"], 
+         " System\[Hyphen]specific Elements"}], "Section"], 
+      Cell[
+       CellGroupData[{
+         Cell["Default Box Styles", "Subsection"], 
+         Cell[
+          StyleData["Graphics"], FontFamily -> "Times"], 
+         Cell[
+          StyleData["Graphics3D"], FontFamily -> "Times"], 
+         Cell[
+          StyleData["NetworkGraphics"], FontFamily -> "Times"]}, Closed]]}, 
+     Closed]]}, Visible -> False, FrontEndVersion -> 
+  "13.1 for Mac OS X ARM (64-bit) (June 16, 2022)", StyleDefinitions -> 
+  "PrivateStylesheetFormatting.nb"],
+ExpressionUUID->"143e0980-fc8c-4778-a1a5-e77ddadf690a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 210, 7, 89, "Title",ExpressionUUID->"2e086750-1cf1-4c43-bc57-bac07652a650"],
+Cell[793, 31, 195, 6, 57, "Text",ExpressionUUID->"679e81cd-23f2-4ac3-aad0-55498a6469d8"],
+Cell[991, 39, 195, 6, 57, "Text",ExpressionUUID->"39bfcd1a-7896-4364-9d2c-9b6c98366775"],
+Cell[CellGroupData[{
+Cell[1211, 49, 189, 3, 69, "Subchapter",ExpressionUUID->"2760ab7a-2fed-4ae4-a63f-890119ad5062"],
+Cell[CellGroupData[{
+Cell[1425, 56, 153, 3, 64, "Section",ExpressionUUID->"28ab532a-4f99-4328-b494-a8a51a0e3e70"],
+Cell[CellGroupData[{
+Cell[1603, 63, 81, 0, 45, "Subsection",ExpressionUUID->"4df8543c-22f8-401d-8973-c66d5fa62864"],
+Cell[1687, 65, 2637, 51, 251, "Text",ExpressionUUID->"8ad5d4da-afa2-434b-a402-a9f9b705fa59"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4361, 121, 83, 0, 45, "Subsection",ExpressionUUID->"39a0ef6c-6a2c-4081-9062-84513a76c571"],
+Cell[4447, 123, 1951, 31, 270, "Text",ExpressionUUID->"1bf59983-7c21-4d19-805a-0068e3a1cdc7"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6447, 160, 155, 3, 64, "Section",ExpressionUUID->"6943093f-8a76-4b29-9b2d-76d8c3875b28"],
+Cell[CellGroupData[{
+Cell[6627, 167, 289, 7, 70, "Subsection",ExpressionUUID->"7e65a304-4725-4568-8fa8-1b4ca87c4741"],
+Cell[CellGroupData[{
+Cell[6941, 178, 293, 7, 55, "Code",ExpressionUUID->"7ceda038-d8c5-4faf-8b48-2d15bc0dcb40"],
+Cell[7237, 187, 197, 4, 35, "Output",ExpressionUUID->"d3712d63-fa87-4cc5-9e07-5c0a335d3ea3"]
+}, Open  ]],
+Cell[7449, 194, 1586, 25, 174, "Text",ExpressionUUID->"cf34a273-f4f4-4244-8aca-2123c4a36c08"],
+Cell[9038, 221, 427, 12, 55, "Code",ExpressionUUID->"14a323b3-923f-4a51-a71c-63e38596b046"],
+Cell[9468, 235, 1011, 16, 105, "Text",ExpressionUUID->"1b8bb2a3-4819-444b-8eb2-4cfc594f0268"],
+Cell[10482, 253, 314, 8, 55, "Code",ExpressionUUID->"5cd1762c-3a26-44b7-803f-e0ae9b500fc1"],
+Cell[10799, 263, 996, 16, 128, "Text",ExpressionUUID->"3143b677-9ad5-4db3-ba94-be5dcf74187c"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[11832, 284, 188, 6, 61, "Subsection",ExpressionUUID->"1db48066-a568-4f09-a9b7-7f37a8e3983c"],
+Cell[12023, 292, 2399, 62, 255, "Input",ExpressionUUID->"f5ea40fb-0d97-45e7-abce-15a1380c23b4"],
+Cell[14425, 356, 2996, 74, 388, "Affiliation",ExpressionUUID->"120fe2be-e9fd-490f-97d7-443683eceefc"],
+Cell[17424, 432, 322, 7, 34, "Affiliation",ExpressionUUID->"5148f49d-d583-4470-9eb3-2dfd15ad68fc"],
+Cell[17749, 441, 81, 0, 34, "Input",ExpressionUUID->"ccdb6aff-850f-45fc-a97e-6b37aeb2f0a6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17867, 446, 164, 6, 70, "Subsection",ExpressionUUID->"6374be70-da34-4981-bcaf-458b45c5773d"],
+Cell[18034, 454, 1031, 31, 272, "Input",ExpressionUUID->"d6f65803-6947-4234-a75e-10f789036269"],
+Cell[19068, 487, 218, 6, 59, "Text",ExpressionUUID->"0cbf8336-db5c-432e-b9a8-dbc84a9ad6fc"],
+Cell[19289, 495, 1059, 31, 256, "Input",ExpressionUUID->"9e1eab5f-2fd5-432a-a1f7-579434744407"],
+Cell[20351, 528, 217, 5, 36, "Text",ExpressionUUID->"c3d327fe-9519-4551-af0b-55b4ae02f99f"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[20605, 538, 285, 5, 36, "Subsection",ExpressionUUID->"00c08f59-b4d9-4383-b5df-b4aa4ef2cd9e"],
+Cell[20893, 545, 4900, 77, 752, "Text",ExpressionUUID->"8c9b7489-af94-4ab6-be7f-77f2860b3ad1"]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25842, 628, 276, 5, 64, "Section",ExpressionUUID->"099ee814-8db2-4a63-8b88-1c9110418edc"],
+Cell[CellGroupData[{
+Cell[26143, 637, 172, 3, 45, "Subsection",ExpressionUUID->"21ba32be-407d-4e0a-9644-649f81adf774"],
+Cell[CellGroupData[{
+Cell[26340, 644, 10629, 254, 1392, "Input",ExpressionUUID->"89513dc4-805c-497e-a0be-de1c8214b930"],
+Cell[CellGroupData[{
+Cell[36994, 902, 277, 5, 25, "Print",ExpressionUUID->"4c35a0b2-d8d2-4e41-b651-c0250ba0ddb2"],
+Cell[37274, 909, 17787, 257, 1307, "Print",ExpressionUUID->"c7e1515b-f228-4307-8a18-4ba0bfe724b8"],
+Cell[55064, 1168, 2349, 36, 173, "Print",ExpressionUUID->"21406edd-664e-4cb6-9050-2b41a8a8de6b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[57474, 1211, 182, 3, 45, "Subsection",ExpressionUUID->"ec051154-7fd9-4813-8b5d-0b7de3da111b"],
+Cell[CellGroupData[{
+Cell[57681, 1218, 10994, 260, 1553, "Input",ExpressionUUID->"a7a721e9-ac23-49f1-adaa-376f2cc1f816"],
+Cell[68678, 1480, 7846, 184, 266, "Output",ExpressionUUID->"58284799-f26a-4dc2-8256-b1dbfb97787b"],
+Cell[76527, 1666, 7798, 183, 276, "Output",ExpressionUUID->"fc7e123f-0cb0-48df-a953-6d2687cf10e6"],
+Cell[84328, 1851, 1300, 40, 254, "Output",ExpressionUUID->"4043eb92-38f9-42a7-9357-b14d2f70bd57"],
+Cell[85631, 1893, 1299, 40, 254, "Output",ExpressionUUID->"8079bedb-5f7f-4c69-a814-10b24d7278b2"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[87003, 1941, 254, 4, 69, "Subchapter",ExpressionUUID->"c1cc77ba-6c2e-4118-bdf9-58022794d1ba"],
+Cell[CellGroupData[{
+Cell[87282, 1949, 153, 3, 64, "Section",ExpressionUUID->"2cf140eb-5e8b-4474-bda5-c37b3d8d033a"],
+Cell[CellGroupData[{
+Cell[87460, 1956, 81, 0, 45, "Subsection",ExpressionUUID->"f5f802cc-7d9a-43d8-b0bb-ee5087f75068"],
+Cell[87544, 1958, 1759, 36, 100, "Text",ExpressionUUID->"97fc7b35-1d27-4ca6-86a8-bd9bc1b5d25d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89340, 1999, 158, 3, 45, "Subsection",ExpressionUUID->"3df2b818-0fd4-4764-a048-e0f332b68c7b"],
+Cell[89501, 2004, 2333, 38, 334, "Text",ExpressionUUID->"4dd62132-bc11-4b70-81c5-2c8e8eabbc1d"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[91883, 2048, 276, 5, 64, "Section",ExpressionUUID->"c5561ab3-2748-4cdc-acbd-c804df217a31"],
+Cell[92162, 2055, 8968, 230, 1369, "Input",ExpressionUUID->"1e467577-7e70-45fd-a92f-6fe724b6165f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
